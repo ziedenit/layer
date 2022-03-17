@@ -1,0 +1,72 @@
+<p-table #tt [columns]="cols2" [value]="rendezvousService.listRendezvous" [paginator]="true" [rows]="5" [first]="first"
+      selectionMode="single" [(selection)]="selectedRendezvous" [(contextMenuSelection)]="selectedRendezvous">
+
+
+      <ng-template pTemplate="caption">
+        <div style="align-content: center;">Liste des Rendez-vous</div>
+
+
+
+        <button pButton label="Ajouter Rendez-vous" icon="fa fa-plus-circle" (click)="showBasicDialogadd()"
+          style="position: relative; left: 350px; top: -10px" class="ui-button-rounded"></button>
+
+
+      </ng-template>
+
+
+      <ng-template pTemplate="header" let-columns>
+
+        <tr>
+          <th *ngFor="let col of columns">
+            {{col.header}}
+          </th>
+          <th style="align-items: center;width: 20%">Operations</th>
+        </tr>
+
+      </ng-template>
+
+      <ng-template pTemplate="body" let-Rendezvous>
+        <tr>
+
+          <td>{{Rendezvous.daterendezvous | date :'short'}}</td>
+          <td>{{Rendezvous.description}}</td>
+          <td>{{Rendezvous.etat}}</td>
+
+          <td style="text-align:center">
+
+              <button pButton type="button" icon="pi pi-pencil" class="ui-button-info" style="margin-right: .5em"
+              (click)="showBasicDialogupdate(Rendezvous)"  data-toggle="tooltip" data-placement="top" title="Mise à jour"></button>
+
+              <button pButton type="button" (click)="confirm4(Rendezvous.idrendezvous)" icon="fa fa-trash"
+              class="ui-button-danger" data-toggle="tooltip" data-placement="top" style="margin-right: .5em"
+              title="Supprimer"></button>
+
+          </td>
+        </tr>
+
+        <ng-template pTemplate="paginatorleft" let-state>
+          {{state.first}}
+          <button type="button" pButton icon="fa-refresh"></button>
+        </ng-template>
+
+        <ng-template pTemplate="paginatorright">
+          <button type="button" pButton icon="fa-cloud-upload"></button>
+        </ng-template>
+
+      </ng-template>
+
+
+      <ng-template pTemplate="summary">
+        {{rendezvousService.listRendezvous?.length}} Rendez-vous
+
+      </ng-template>
+
+    </p-table>
+
+
+
+<!-- add REndezvous -->
+  <app-add-rdv [displayBasicadd]="displayBasicadd" [phaseId]="phaseId"></app-add-rdv>
+  <app-update-rdv [displayBasicupdate]="displayBasicupdate" [idrendezvous]="idrendezvous"></app-update-rdv>
+
+<!---->

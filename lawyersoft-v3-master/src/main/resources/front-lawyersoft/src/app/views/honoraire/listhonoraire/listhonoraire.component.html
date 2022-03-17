@@ -1,0 +1,82 @@
+<p-breadcrumb style="position: relative; top:-35px;" [model]="items" [home]="home"></p-breadcrumb>
+<p-table #tt [columns]="cols" [value]="listHonnoraire" [paginator]="true" [rows]="5" [first]="first"
+  selectionMode="single" [(selection)]="selectedHonnoraire" [(contextMenuSelection)]="selectedHonnoraire"
+  [globalFilterFields]="[
+    'Titre affaire',
+    'reference',
+    'Avocats',
+    'Tribunal',
+    'Type Affaire'
+  ]">
+
+
+  <ng-template pTemplate="caption">
+    <div style="align-content: center;">Liste des Honoraires</div>
+    <div class="ui-g">
+      <div class="ui-g-12">
+        <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+        <input type="text" pInputText size="50" placeholder="Filtre Globale"
+          (input)="tt.filterGlobal($event.target.value, 'contains')" style="width:auto" />
+      </div>
+    </div>
+  </ng-template>
+
+
+  <ng-template pTemplate="header" let-columns>
+
+    <tr>
+      <th *ngFor="let col of columns">
+        {{col.header}}
+      </th>
+      <th style="align-items: center;width: 20%">Operations</th>
+    </tr>
+
+  </ng-template>
+
+  <ng-template pTemplate="body" let-Honnoraire>
+    <tr>
+      <td>{{Honnoraire.affaireId.reference}}</td>
+      <td>{{Honnoraire.affaireId.titre}}</td>
+      <td>{{Honnoraire.affaireId.dateCreation | date:'yyyy/MM/dd' }} </td>
+      <td>{{Honnoraire.montant}}</td>
+      <td>{{Honnoraire.reste}}</td>
+      <td>{{Honnoraire.affaireId.typeaffaireId.typeaffaire}}
+      </td>
+      <td><span *ngFor="let item of Honnoraire.affaireId.intervenant">{{item.nom}}</span></td>
+
+      <td style="text-align:center">
+        {{Honnoraire.honoraireId}}
+        <a [routerLink]="['/honoraire/honoraireaffaire', Honnoraire.affaireId.affaireId ]">
+          <button pButton type="button" icon="pi pi-pencil" class="ui-button-info" style="margin-right: .5em"
+            data-toggle="tooltip" data-placement="top" title="Mise à jour"></button>
+        </a>
+
+
+          <button pButton type="button" icon="fa fa-file-text" style="margin-right: .5em" class="ui-button-info"
+          download="test.pdf" (click)="generaterapport(Honnoraire)"  style="margin-right: .5em" data-toggle="tooltip" data-placement="top" title="Générer rapport"></button>
+
+
+      </td>
+    </tr>
+
+
+
+    <ng-template pTemplate="paginatorleft" let-state>
+      {{state.first}}
+      <button type="button" pButton icon="fa-refresh"></button>
+    </ng-template>
+
+    <ng-template pTemplate="paginatorright">
+      <button type="button" pButton icon="fa-cloud-upload"></button>
+    </ng-template>
+
+  </ng-template>
+
+
+  <ng-template pTemplate="summary">
+    {{listHonnoraire?.length}} Honoraires
+
+  </ng-template>
+
+</p-table>
+<p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>

@@ -1,0 +1,114 @@
+<p-breadcrumb style="position: relative; top:-35px;" [model]="items" [home]="home"></p-breadcrumb>
+<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+    <div class="panel panel-primary" style="border: 1px solid #35748b;">
+        <div class="panel-heading bg-primary">
+            <div class="row">
+
+                <div class="col-sm-10">
+                    <h4><i class="fa fa-tasks" ></i> Détails Auxiliaire</h4>
+                </div>
+                <div class="col-sm-2">
+                    <button routerLink="/auxiliaire" class="btn btn-inverse"><i
+                            class="icofont icofont-arrow-left"></i>Retour</button></div>
+            </div>
+        </div>
+        <br>
+        <form [formGroup]="auxiliaireForm">
+            <div class="panel-body">
+                <div class="container">
+
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+
+                            <span class="ui-float-label">
+                                <input type="text" readonly="readonly" id="name" formControlName="nom" id="auxiliairename"
+                                    class="form-control" size="30" pInputText size="30" required>
+
+                                <label for="auxiliairename">Nom</label>
+                            </span>
+
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <span class="ui-float-label">
+                                <input type="text" readonly="readonly" formControlName="prenom" id="auxiliaireprenom" class="form-control"
+                                    size="30" pInputText required>
+                                <label for="auxiliaireprenom">Prénom</label>
+                            </span>
+
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+
+                            <span class="ui-float-label">
+                                <input type="number"  readonly="readonly" formControlName="telephone" id="auxiliairetelephone"
+                                    class="form-control" pInputText required>
+
+                                <label for="auxiliairetelephone">Telephone</label>
+                            </span>
+
+                        </div>
+                        <div class="form-group col-md-6">
+
+                            <span class="ui-float-label">
+                                <input type="email" readonly="readonly" formControlName="email" id="auxiliaireemail" class="form-control"
+                                    pInputText required>
+
+                                <label for="auxiliaireemail">Email</label>
+                            </span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+
+                            <span class="ui-float-label">
+                                <input type="text"  readonly="readonly" formControlName="gouvernorat" id="auxiliairegouvernorat"
+                                    class="form-control" size="30" pInputText required>
+                                <label for="auxiliairegouvernorat">gouvernorat</label>
+                            </span>
+
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <span class="ui-float-label">
+                                <input type="text" readonly="readonly"  formControlName="ville" id="auxiliaireville" class="form-control"
+                                    size="30" pInputText required>
+                                <label for="auxiliaireville">Ville</label>
+                            </span>
+
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <span class="ui-float-label">
+                                <input type="text" readonly="readonly" formControlName="adresse" id="auxiliaireadresse" class="form-control"
+                                    size="30" pInputText required>
+                                <label for="auxiliaireadresse">Adresse</label>
+                            </span>
+
+                        </div>
+                        <div class="form-group col-md-6">
+
+                            <p-dropdown [style]="{'width':'100%','line-height': '1.25'}" [options]="listTypeAuxiliaire"
+                                formControlName="typeauxiliaireId" optionLabel="typeauxiliaire" editable="true"
+                                placeholder="Select Type auxiliaire"
+                                readonly="readonly">
+                            </p-dropdown>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </form>
+
+    </div>
+</div>

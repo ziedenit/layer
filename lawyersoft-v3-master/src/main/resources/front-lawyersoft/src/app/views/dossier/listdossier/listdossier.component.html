@@ -1,0 +1,146 @@
+<p-table #tt [columns]="cols" [value]="listDossier" [paginator]="true" [rows]="4" [first]="first" selectionMode="single"
+  [(selection)]="selectedDossier" [(contextMenuSelection)]="selectedDossier">
+
+  <ng-template pTemplate="caption">
+
+    <div style="align-content: right;"><i class="fa fa-navicon"></i> Liste des Dossiers</div>
+
+    <button pButton label="Ajouter un dossier" icon="fa fa-plus-circle" style="position: relative; left: 350px;"
+      class="ui-button-rounded" (click)="showBasicDialog()"></button>
+
+  </ng-template>
+
+
+  <ng-template pTemplate="header" let-columns>
+
+    <tr>
+      <th *ngFor="let col of columns">
+        {{col.header}}
+      </th>
+      <th style="align-items: center;">Operations</th>
+    </tr>
+
+  </ng-template>
+
+  <ng-template pTemplate="body" let-Dossier>
+    <tr>
+      <td>{{Dossier.nom}}</td>
+      <td>{{Dossier.description}}</td>
+
+
+      <td style="text-align:center">
+        <button pButton type="button" icon="pi pi-pencil" class="ui-button-info"
+          (click)="showBasicDialogupdate(Dossier.dossierId)" style="margin-right: .5em" data-toggle="tooltip"
+          data-placement="top" title="Mise à jour"></button>
+
+        <a [routerLink]="['/fichier/fichierdossier', Dossier.dossierId ]">
+          <button pButton type="button" icon="fa fa-folder-o" class="ui-button-info" style="margin-right: .5em"
+            data-toggle="tooltip" data-placement="top" title="Ouvrir"></button>
+        </a>
+
+        <button pButton type="button" (click)="confirm2(Dossier.dossierId)" icon="fa fa-trash" class="ui-button-danger"
+          data-toggle="tooltip" data-placement="top" title="Supprimer"></button>
+      </td>
+    </tr>
+
+
+    <ng-template pTemplate="paginatorleft" let-state>
+      {{state.first}}
+      <button type="button" pButton icon="fa-refresh"></button>
+    </ng-template>
+
+    <ng-template pTemplate="paginatorright">
+      <button type="button" pButton icon="fa-cloud-upload"></button>
+    </ng-template>
+
+  </ng-template>
+
+
+  <ng-template pTemplate="summary">
+    {{listDossier?.length}} Dossiers
+
+  </ng-template>
+
+</p-table>
+
+<p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
+
+
+<p-dialog header="Ajouter Dossier" [(visible)]="displayBasic" [style]="{width: '50vw'}">
+
+  <form [formGroup]="dossierForm" (ngSubmit)="adddossier()">
+
+    <div class="form-row">
+      <div class="form-group col-md-12">
+
+        <span class="ui-float-label">
+          <input type="text" formControlName="nom" class="form-control" id="nomdossier" size="30" pInputText size="30"
+            required>
+          <label for="nomdossier">Nom</label>
+        </span>
+        <div *ngIf="submitted && f.nom.invalid" style="color: red;">Nom est obligatoire
+        </div>
+      </div>
+
+      <div class="form-group col-md-12">
+        <span class="ui-float-label">
+          <textarea class="form-control" id="dossierdescription" formControlName="description" size="30" pInputText
+            size="30" required></textarea>
+          <label for="dossierdescription">Déscription</label>
+        </span>
+        <div *ngIf="submitted && f.description.invalid" style="color: red;">Description est obligatoire
+        </div>
+      </div>
+
+    </div>
+
+    <p-footer>
+      <button type="submit" pButton style="margin-right: .5em" class="btn btn-primary" label="Enregistrer"></button>
+      <button type="button" pButton (click)="displayBasic=false" label="Annuler" style="margin-right: .5em"
+        class="ui-button-danger"></button>
+    </p-footer>
+
+  </form>
+</p-dialog>
+
+
+
+<p-dialog header="Modifier Dossier" [(visible)]="displayBasic1" [style]="{width: '50vw'}">
+
+  <form [formGroup]="dossierForm1" (ngSubmit)="updateDossier()">
+
+    <div class="form-row">
+      <div class="form-group col-md-12">
+
+        <span class="ui-float-label">
+          <input type="text" formControlName="nom" class="form-control" id="nomdossier" size="30" pInputText size="30"
+            required>
+          <label for="nomdossier">Nom</label>
+        </span>
+        <div *ngIf="submitted && f.nom.invalid" style="color: red;">Nom est obligatoire
+        </div>
+      </div>
+
+      <div class="form-group col-md-12">
+        <span class="ui-float-label">
+          <textarea class="form-control" id="dossierdescription" formControlName="description" size="30" pInputText
+            size="30" required></textarea>
+          <label for="dossierdescription">Déscription</label>
+        </span>
+        <div *ngIf="submitted && f.description.invalid" style="color: red;">Description est obligatoire
+        </div>
+      </div>
+
+    </div>
+
+    <p-footer>
+      <button type="submit" pButton style="margin-right: .5em" class="btn btn-primary" label="Modifier"></button>
+      <button type="button" pButton (click)="displayBasic1=false" label="Annuler" style="margin-right: .5em"
+        class="ui-button-danger"></button>
+    </p-footer>
+
+  </form>
+
+
+
+</p-dialog>

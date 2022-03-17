@@ -1,0 +1,85 @@
+<p-breadcrumb style="position: relative; top:-35px;" [model]="items" [home]="home"></p-breadcrumb>
+<p-table #tt [columns]="cols" [value]="listTribunaux" [paginator]="true" [rows]="5" [first]="first" sortMode="multiple"
+  selectionMode="single" [(selection)]="selectedtribunal" [(contextMenuSelection)]="selectedtribunal"
+  [globalFilterFields]="[
+    'nom',
+    'adresse',
+    'gouvernorat',
+    'ville',
+    'typetribunalId.typetribunal'
+  ]">
+
+
+  <ng-template pTemplate="caption">
+    <div style="align-content: center;">Liste des tribunaux</div>
+    <div class="ui-g">
+      <div class="ui-g-12">
+        <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+        <input type="text" pInputText size="50" placeholder="Filtre Globale"
+          (input)="tt.filterGlobal($event.target.value, 'contains')" style="width:auto" />
+      </div>
+    </div>
+
+    <a routerLink="/tribunaux/ajouter" *ngIf="droitTribunal.ajout">
+      <button pButton label="Ajouter" icon="fa fa-plus-circle" style="position: relative; left: 350px; top: -40px"
+        class="ui-button-rounded"></button>
+    </a>
+
+  </ng-template>
+
+  <ng-template pTemplate="header" let-columns>
+    <tr>
+      <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+        {{col.header}}
+      </th>
+
+      <th style="align-items: center;">Operations</th>
+    </tr>
+
+    <tr>
+
+    </tr>
+
+  </ng-template>
+
+  <ng-template pTemplate="body" let-Tribunal>
+    <tr>
+      <td>{{Tribunal.nom}}</td>
+      <td>{{Tribunal.adresse}}</td>
+      <td>{{Tribunal.gouvernorat}}</td>
+      <td>{{Tribunal.ville}}</td>
+      <td>{{Tribunal.telephone}}</td>
+      <td>{{Tribunal.typetribunalId.typetribunal }}</td>
+
+      <td style="text-align:center">
+        <a [routerLink]="['/tribunaux/update', Tribunal.tribunalId ]" *ngIf="droitTribunal?.modif">
+          <button pButton type="button" icon="pi pi-pencil" class="ui-button-info" data-toggle="tooltip"
+            data-placement="top" title="Détails" style="margin-right: .5em"></button>
+        </a>
+
+
+        <button *ngIf="droitTribunal?.supprime" pButton type="button" (click)="confirm2(Tribunal.tribunalId)"
+          data-toggle="tooltip" data-placement="top" title="Supprimer" icon="fa fa-trash"
+          class="ui-button-danger"></button>
+      </td>
+    </tr>
+
+    <ng-template pTemplate="paginatorleft" let-state>
+      {{state.first}}
+      <button type="button" pButton icon="fa-refresh"></button>
+    </ng-template>
+
+    <ng-template pTemplate="paginatorright">
+      <button type="button" pButton icon="fa-cloud-upload"></button>
+    </ng-template>
+
+  </ng-template>
+
+
+  <ng-template pTemplate="summary">
+    {{listTribunaux?.length}} tribunaux
+
+  </ng-template>
+</p-table>
+
+<p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>

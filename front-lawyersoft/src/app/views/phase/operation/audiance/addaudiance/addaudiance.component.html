@@ -1,0 +1,55 @@
+<p-dialog header="Ajouter Audiance" [(visible)]="displayBasicadd" [style]="{'width': '500px','height': '180px'}">
+
+<form [formGroup]="audianceForm" (ngSubmit)="addaudiance()" style="height: 180px;">
+
+  <div class="form-row">
+    <div class="form-group col-md-6">
+
+      <span class="ui-float-label">
+        <input type="text" formControlName="titre" class="form-control" id="titreaudiance" size="30" pInputText
+          size="30" required>
+        <label for="titreaudiance">Titre</label>
+      </span>
+      <div *ngIf="submitted && f.titre.invalid" style="color: red;">Titre est obligatoire
+      </div>
+    </div>
+
+    <!-- <div class="form-group col-md-6">
+      <p-dropdown [options]="etat" formControlName="etat" placeholder="Etat"
+        [style]="{'width':'100%','line-height': '1.25'}">
+      </p-dropdown>
+     <div *ngIf="submitted && f.etat.invalid" style="color: red;">Etat est obligatoire
+      </div>
+    </div>-->
+ <div class="form-group col-md-6">
+      <span class="ui-float-label">
+
+        <p-calendar formControlName="dateAudiance" [style]="{'position': 'fixed', 'overflow': 'visible'}" id="date" [showTime]="true" [showIcon]="true" dateFormat="yy.mm.dd"></p-calendar>
+        <label for="date">Date Audiance</label>
+
+      </span>
+      <div *ngIf="submitted && f.dateAudiance.invalid" style="color: red;">Date Audiance est obligatoire
+      </div>
+    </div>
+
+  </div>
+
+  <div class="form-row">
+
+    <div class="form-group col-md-6">
+      <p-dropdown  [style]="{'width':'100%','line-height': '1.25'}" [options]="liststatusaudiance" formControlName="statusId"
+        optionLabel="status"  placeholder="Status"></p-dropdown>
+      <div *ngIf="submitted && f.statusId.invalid" style="color: red;">Type est obligatoire
+      </div>
+    </div>
+  </div>
+
+<p-footer>
+    <button type="submit" pButton style="margin-right: .5em" class="btn btn-primary" label="Ajouter"></button>
+    <button type="button" pButton  (click)="resetAudianceForm()" (click)="displayBasicadd=false" label="Annuler" style="margin-right: .5em"
+      class="ui-button-danger"></button>
+  </p-footer>
+
+</form>
+</p-dialog>
+<p-toast [style]="{marginTop: '80px'}"></p-toast>

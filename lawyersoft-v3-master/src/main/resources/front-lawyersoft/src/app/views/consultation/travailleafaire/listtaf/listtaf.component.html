@@ -1,0 +1,93 @@
+<p-breadcrumb style="position: relative; top:-35px;" [model]="items" [home]="home"></p-breadcrumb>
+<p-table #tt [columns]="cols" [value]="listConsultation" [paginator]="true" [rows]="10" [first]="first"
+  selectionMode="single" [(selection)]="selectedConsultation" [(contextMenuSelection)]="selectedConsultation"
+  [globalFilterFields]="[
+    'type',
+    'titre',
+    'collaborateur',
+    'etat'
+  ]">
+
+
+  <ng-template pTemplate="caption">
+    <div style="align-content: center;">Liste des Travaux à faire</div>
+    <div class="ui-g">
+      <div class="ui-g-12">
+        <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+        <input type="text" pInputText size="50" placeholder="Filtre Globale"
+          (input)="tt.filterGlobal($event.target.value, 'contains')" style="width:auto" />
+      </div>
+    </div>
+
+    <a routerLink="/taf/ajouter">
+      <button pButton label="Ajouter" icon="fa fa-plus-circle" style="position: relative; left: 350px; top: -40px"
+        class="ui-button-rounded"></button>
+    </a>
+
+  </ng-template>
+
+
+  <ng-template pTemplate="header" let-columns>
+
+    <tr>
+      <th *ngFor="let col of columns">
+        {{col.header}}
+      </th>
+      <th style="align-items: center;width: 20%">Operations</th>
+    </tr>
+
+  </ng-template>
+
+  <ng-template pTemplate="body" let-Consultation>
+    <tr>
+      <td>{{Consultation.type}}</td>
+      <td>{{Consultation.titre}}</td>
+      <td><span *ngFor="let item of Consultation.user">{{item.nom}} <br>{{item.prenom}}</span></td>
+      <td>{{ Consultation.dateDebut | date :'short'  }} </td>
+      <td>{{Consultation.etat }} </td>
+
+      <td style="text-align:center">
+
+        <a [routerLink]="['/taf/updatetaf', Consultation.consultationId ]">
+          <button pButton type="button" icon="pi pi-pencil" class="ui-button-info" style="margin-right: .5em"
+            data-toggle="tooltip" data-placement="top" title="Mise à jour"></button>
+        </a>
+
+        <a [routerLink]="['/taf/detailstaf', Consultation.consultationId ]">
+          <button pButton type="button" icon="fa fa-tasks" class="ui-button-info" style="margin-right: .5em"
+            data-toggle="tooltip" data-placement="top" title="Détails"></button>
+        </a>
+
+
+        <br>
+        <br>
+
+        <button pButton type="button" (click)="confirm2(Consultation.consultationId)" icon="fa fa-trash"
+          class="ui-button-danger" data-toggle="tooltip" data-placement="top" style="margin-right: .5em"
+          title="Supprimer"></button>
+
+
+      </td>
+    </tr>
+
+
+
+    <ng-template pTemplate="paginatorleft" let-state>
+      {{state.first}}
+      <button type="button" pButton icon="fa-refresh"></button>
+    </ng-template>
+
+    <ng-template pTemplate="paginatorright">
+      <button type="button" pButton icon="fa-cloud-upload"></button>
+    </ng-template>
+
+  </ng-template>
+
+
+  <ng-template pTemplate="summary">
+    {{listConsultation?.length}} Travailles à faire
+
+  </ng-template>
+
+</p-table>
+<p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>

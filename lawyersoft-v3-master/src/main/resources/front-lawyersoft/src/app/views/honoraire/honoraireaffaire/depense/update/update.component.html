@@ -1,0 +1,46 @@
+<p-dialog header="Modifier Dépense" [(visible)]="displayBasicupdatedepense" [style]="{'width': '500px','height': '180px'}">
+
+  <form [formGroup]="honoraireForm" (ngSubmit)="updatedepense()" style="height: 180px;">
+    <div class="form-row">
+      <div class="form-group col-md-6">
+
+        <span class="ui-float-label">
+          <input type="text" formControlName="titre" class="form-control" id="titre" size="30" pInputText size="30"
+            required>
+          <label for="titre">Titre</label>
+        </span>
+        <div *ngIf="submitted && f.titre.invalid" style="color: red;">Titre est obligatoire
+        </div>
+      </div>
+
+      <div class="form-group col-md-6">
+        <span class="ui-float-label">
+
+          <p-calendar [style]="{'position': 'fixed', 'overflow': 'visible'}" formControlName="dateHonnoraire"  id="dateHonnoraire" dateFormat="yy-mm-dd" [showIcon]="true"></p-calendar>
+          <label for="dateHonnoraire">Date</label>
+
+        </span>
+        <div *ngIf="submitted && f.dateHonnoraire.invalid" style="color: red;">Date est obligatoire
+        </div>
+      </div>
+
+      <div class="form-group col-md-6">
+
+        <span class="ui-float-label">
+          <input type="number" formControlName="montant" class="form-control" id="montant" size="30" pInputText size="30"
+            required>
+          <label for="montant">Montant</label>
+        </span>
+        <div *ngIf="submitted && f.montant.invalid" style="color: red;">Montant est obligatoire
+        </div>
+      </div>
+
+    </div>
+
+
+    <p-footer>
+      <button type="submit" pButton style="margin-right: .5em" class="btn btn-primary" label="Modifier"></button>
+    </p-footer>
+  </form>
+
+</p-dialog>

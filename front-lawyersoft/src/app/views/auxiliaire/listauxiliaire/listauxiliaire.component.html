@@ -1,0 +1,88 @@
+<p-breadcrumb style="position: relative; top:-35px;" [model]="items" [home]="home"></p-breadcrumb>
+<p-table #tt [columns]="cols" [value]="listAuxiliaire" [paginator]="true" [rows]="5" [first]="first"
+    sortMode="multiple" selectionMode="single" [(selection)]="selectedAuxiliaire"
+    [(contextMenuSelection)]="selectedAuxiliaire"
+    [globalFilterFields]="[
+    'nom',
+    'prenom',
+    'email',
+    'telephone','typeauxiliaireId.typeauxiliaire'
+  ]"
+>
+    <ng-template pTemplate="caption">
+        <div style="align-content: center;">Liste des auxiliaires</div>
+        <div class="ui-g">
+          <div class="ui-g-12">
+            <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+            <input
+              type="text"
+              pInputText
+              size="50"
+              placeholder="Filtre Globale"
+              (input)="tt.filterGlobal($event.target.value, 'contains')"
+              style="width:auto"
+            />
+          </div>
+        </div>
+        <a routerLink="/auxiliaire/ajouter">
+            <button pButton label="Ajouter" icon="fa fa-plus-circle" style="position: relative; left: 350px; top: -40px"
+                class="ui-button-rounded"></button>
+        </a>
+    </ng-template>
+
+    <ng-template pTemplate="header" let-columns>
+
+        <tr>
+            <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                {{col.header}}
+            </th>
+            <th style="align-items: center;">Operations</th>
+        </tr>
+
+    </ng-template>
+
+    <ng-template pTemplate="body" let-Auxiliaire>
+        <tr [pSelectableRow]="Auxiliaire">
+            <td>{{Auxiliaire.nom}}</td>
+            <td>{{Auxiliaire.prenom}}</td>
+            <td>{{Auxiliaire.email}}</td>
+            <td>{{Auxiliaire.telephone}}</td>
+            <td>{{Auxiliaire.typeauxiliaireId.typeauxiliaire}}</td>
+
+            <td style="text-align:center">
+                <a [routerLink]="['/auxiliaire/update', Auxiliaire.auxiliaireId ]">
+                    <button pButton type="button" icon="pi pi-pencil" class="ui-button-info"
+                        style="margin-right: .5em" data-toggle="tooltip" data-placement="top" title="mise à jour"></button>
+                </a>
+                <a [routerLink]="['/auxiliaire/details', Auxiliaire.auxiliaireId ]">
+                    <button pButton type="button" icon="fa fa-tasks" class="ui-button-info"
+                        style="margin-right: .5em" data-toggle="tooltip" data-placement="top" title="Détails" ></button>
+                  </a>
+                <button pButton type="button" (click)="confirm2(Auxiliaire.auxiliaireId)" icon="fa fa-trash"
+                    class="ui-button-danger" data-toggle="tooltip" data-placement="top" title="Supprimer" ></button>
+            </td>
+        </tr>
+
+
+
+        <ng-template pTemplate="paginatorleft" let-state>
+            {{state.first}}
+            <button type="button" pButton icon="fa-refresh"></button>
+        </ng-template>
+
+        <ng-template pTemplate="paginatorright">
+            <button type="button" pButton icon="fa-cloud-upload"></button>
+        </ng-template>
+
+    </ng-template>
+
+
+    <ng-template pTemplate="summary">
+        {{listAuxiliaire?.length}} Auxiliaires
+
+    </ng-template>
+
+
+
+</p-table>
+<p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>

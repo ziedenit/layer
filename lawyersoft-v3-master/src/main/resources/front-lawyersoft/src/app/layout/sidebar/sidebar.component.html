@@ -1,0 +1,211 @@
+<nav class="pcoded-navbar">
+    <div class="pcoded-inner-navbar main-menu">
+        <div class="pcoded-navigatio-lavel">Navigation</div>
+        <span *ngFor="let item of menu">
+            <ul class="pcoded-item" *ngIf="!item.children">
+                <li class="pcoded-item">
+                    <a [routerLink]="item.routerLink" routerLinkActive="active">
+                        <span class="pcoded-micon"><i [class]="item.icon"></i>
+                        </span>
+
+                        <span class="pcoded-mtext">{{item.name}}</span>
+                    </a>
+
+                </li>
+            </ul>
+            <ul class="pcoded-item pcoded-left-item" *ngIf="item.children">
+                <li class="pcoded-hasmenu">
+                    <a href="javascript:void(0)">
+                        <span class="pcoded-micon"><i [class]="item.icon"></i></span>
+                        <span class="pcoded-mtext">{{item.name}}</span>
+                    </a>
+                    <ul class="pcoded-submenu">
+                        <span *ngFor="let children of item.children">
+                            <li>
+                                <a [routerLink]="children.routerLink" routerLinkActive="active">
+                                    <i [class]="children.icon"></i>
+                                    {{children.name}}
+                                </a>
+                            </li>
+                        </span>
+
+                    </ul>
+                </li>
+            </ul>
+        </span>
+        <!-- <ul class="pcoded-item">
+            <li>
+                <a routerLink="/accueil" routerLinkActive="active">
+                    <span class="pcoded-micon"><i class="feather icon-home"></i></span>
+                    Accueil
+                </a>
+            </li>
+
+        </ul>
+
+        <ul class="pcoded-item">
+            <li class="">
+                <a routerLink="/calendrier">
+                    <span class="pcoded-micon"><i class="fa fa-calendar"></i></span>
+                    Calenderier
+                </a>
+            </li>
+
+        </ul>
+        <ul class="pcoded-item pcoded-left-item">
+            <li class="pcoded-hasmenu">
+                <a href="javascript:void(0)">
+                    <span class="pcoded-micon"><i class="fa fa-balance-scale"></i></span>
+                    <span class="pcoded-mtext">Affaires</span>
+                </a>
+                <ul class="pcoded-submenu">
+                    <li class="">
+                        <a routerLink="/affaire/ajouter">
+                            <i class="fa fa-plus-circle"></i>
+                            Ajouter
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/affaire/precontentieux">
+                            <i class="fa fa-navicon"></i>
+                            Pré-contentieux
+                        </a>
+                    </li>
+                    <li class="">
+                        <a routerLink="/affaire/encours">
+                            <i class="fa fa-navicon"></i>
+                            En cours
+                        </a>
+                    </li>
+                    <li class="">
+
+                        <a routerLink="/affaire/archiver">
+                            <i class="fa fa-navicon"></i>
+                            Archivées
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <ul class="pcoded-item">
+                <li class="">
+                    <a routerLink="/honoraire">
+                        <span class="pcoded-micon"> <i class="fa fa-dollar"></i></span>
+                        Honoraires
+                    </a>
+                </li>
+
+            </ul>
+
+            <li class="pcoded-item">
+                <a routerLink="/intervenant">
+                    <span class="pcoded-micon"><i class="fa fa-users"></i>
+                    </span>
+
+                    <span class="pcoded-mtext">Intervenants</span>
+                </a>
+
+            </li>
+            <li class="pcoded-item">
+                <a routerLink="/auxiliaire">
+                    <span class="pcoded-micon"><i class="fa fa-users"></i>
+                    </span>
+
+                    <span class="pcoded-mtext">Auxiliaires</span>
+                </a>
+
+            </li>
+            <li class="pcoded-item">
+                <a routerLink="/tribunaux">
+                    <span class="pcoded-micon"><i class="fa fa-university"></i>
+                    </span>
+
+                    <span class="pcoded-mtext">Tribunaux</span>
+                </a>
+
+            </li>
+            <li class="pcoded-hasmenu">
+                <a href="javascript:void(0)">
+                    <span class="pcoded-micon"><i class="fa fa-tags"></i></span>
+                    <span class="pcoded-mtext">Consultations</span>
+                </a>
+                <ul class="pcoded-submenu">
+                    <li class="">
+                        <a routerLink="/rendez-vous" routerLinkActive="active">
+
+                            <i class="zmdi zmdi-account-calendar"></i>
+
+                            Rendez-vous
+                        </a>
+                    </li>
+                    <li>
+
+                        <a routerLink="/taf" routerLinkActive="active">
+                            <i class="fa fa-tag"></i>
+                            Travaille à faire
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+            <li class="pcoded-item">
+                <a routerLink="/user" routerLinkActive="active">
+                    <span class="pcoded-micon"><i class="fa fa-users"></i>
+                    </span>
+
+                    <span class="pcoded-mtext">Utilisateurs</span>
+                </a>
+
+            </li>
+            <li class="pcoded-hasmenu">
+                <a href="javascript:void(0)">
+                    <span class="pcoded-micon"><i class="fa fa-cogs"></i></span>
+                    <span class="pcoded-mtext">Configuration
+                    </span>
+                </a>
+                <ul class="pcoded-submenu">
+                    <li class="">
+                        <a routerLink="/profiles">
+                            <i class="fa fa-cog"></i>
+                            Profiles Utilisateurs
+                        </a>
+                    </li>
+                    <li class="">
+                        <a routerLink="/typeaffaire">
+                            <i class="fa fa-cog"></i>
+                            Types affaire
+                        </a>
+                    </li>
+                    <li class="">
+                        <a routerLink="/typeintervenant">
+                            <i class="fa fa-cog"></i>
+                            Types intervenant
+                        </a>
+                    </li>
+                    <li class="">
+                        <a routerLink="/typeauxiliaire">
+                            <i class="fa fa-cog"></i>
+                            Types auxiliaire
+                        </a>
+                    </li>
+                    <li class="">
+                        <a routerLink="/typetribunal">
+                            <i class="fa fa-cog"></i>
+                            Types tribunaux
+                        </a>
+                    </li>
+                    <li class="">
+                        <a routerLink="/statusaudiance">
+                            <i class="fa fa-cog"></i>
+                            Status audiance
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+
+
+        </ul> -->
+
+
+    </div>
+</nav>

@@ -1,0 +1,72 @@
+<p-table #tt [columns]="cols" [value]="audianceService.listAudiance" [paginator]="true" [rows]="5" [first]="first"
+  selectionMode="single" [(selection)]="selectedAudiance" [(contextMenuSelection)]="selectedAudiance">
+
+
+  <ng-template let-Audiance pTemplate="caption">
+    <div style="align-content: center;">Liste des audiances</div>
+
+    <!--<b *ngIf="Audiance.phaseId.current == 1">-->
+    <button pButton label="Ajouter audiance" icon="fa fa-plus-circle" (click)="showBasicDialogadd()"
+      style="position: relative; left: 350px; top: -10px" class="ui-button-rounded"></button>
+
+  </ng-template>
+
+
+  <ng-template pTemplate="header" let-columns>
+
+    <tr>
+      <th *ngFor="let col of columns">
+        {{col.header}}
+      </th>
+      <th style="align-items: center;width: 20%">Operations</th>
+    </tr>
+
+  </ng-template>
+
+  <ng-template pTemplate="body" let-Audiance>
+    <tr>
+
+      <td>{{Audiance.titre}}</td>
+      <td>{{Audiance.dateAudiance | date :'short'}}</td>
+      <td>{{Audiance.statusId.status}}</td>
+      <td>{{Audiance.etat}}</td>
+
+      <td style="text-align:center">
+
+        <!--<a [routerLink]="['/phase/operation/audiance/update', Audiance.idAudiance ]">
+            <button pButton type="button" icon="pi pi-pencil" class="ui-button-info" style="margin-right: .5em"
+              data-toggle="tooltip" data-placement="top" title="Mise à jour"></button>
+          </a>-->
+
+        <button pButton type="button" icon="pi pi-pencil" class="ui-button-info" style="margin-right: .5em"
+          (click)="showBasicDialogupdate(Audiance)" data-toggle="tooltip" data-placement="top"
+          title="Mise à jour"></button>
+
+        <button pButton type="button" (click)="confirm2(Audiance.idAudiance)" icon="fa fa-trash"
+          class="ui-button-danger" data-toggle="tooltip" data-placement="top" style="margin-right: .5em"
+          title="Supprimer"></button>
+
+      </td>
+    </tr>
+
+    <ng-template pTemplate="paginatorleft" let-state>
+      {{state.first}}
+      <button type="button" pButton icon="fa-refresh"></button>
+    </ng-template>
+
+    <ng-template pTemplate="paginatorright">
+      <button type="button" pButton icon="fa-cloud-upload"></button>
+    </ng-template>
+
+  </ng-template>
+
+
+  <ng-template pTemplate="summary">
+    {{audianceService.listAudiance?.length}} Audiance
+
+  </ng-template>
+
+</p-table>
+
+<app-addaudiance [displayBasicadd]="displayBasicadd" [phaseId]="phaseId"></app-addaudiance>
+<app-updateaudiance [displayBasicupdate]="displayBasicupdate" [idAudiance]="idAudiance"></app-updateaudiance>

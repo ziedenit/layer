@@ -1,0 +1,174 @@
+<p-breadcrumb style="position: relative; top:-35px;" [model]="items" [home]="home"></p-breadcrumb>
+<div class="content p-24">
+    <div style="margin-left: 90%;margin-bottom: 2%">
+        <button type="button" pButton icon="fa fa-plus-circle" (click)="addRow()" class="ui-button-rounded"
+            label="Ajouter"></button>
+    </div>
+
+    <p-table [value]="droitsAcces" dataKey="idDroitAcces" [paginator]="true" [rows]="5" [first]="first" editMode="row"
+        #table>
+
+        <ng-template pTemplate="header">
+            <tr>
+                <th width="20%">Page</th>
+                <th>Ajout</th>
+                <th>Modification</th>
+                <th>Suppression</th>
+                <th>Archivage</th>
+                <th>suivi Affaire</th>
+                <th>Operations</th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-droit let-editing="editing" let-ri="rowIndex">
+            <tr [pEditableRow]="droit">
+
+                <td>
+                    <p-cellEditor *ngIf="!isUpdate">
+                        <ng-template pTemplate="input">
+                            <p-dropdown [options]="allPages" [(ngModel)]="droit.page" optionLabel="nom"
+                                placeholder="Page">
+                            </p-dropdown>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{droit.page.nom}}
+                        </ng-template>
+                    </p-cellEditor>
+                    <span *ngIf="isUpdate"> {{droit.page.nom}} </span>
+                </td>
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <p-inputSwitch [(ngModel)]="droit.ajout"></p-inputSwitch>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            <div *ngIf="droit.ajout; then active else desactiver"></div>
+                            <ng-template #active><i class="fa fa-check-circle fa-2x"
+                                    style="color:rgb(37, 158, 78);"></i>
+                            </ng-template>
+                            <ng-template #desactiver><i class="fa fa-times-circle fa-2x"
+                                    style="color:rgb(231, 12, 12);"></i>
+                            </ng-template>
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <p-inputSwitch [(ngModel)]="droit.modif"></p-inputSwitch>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            <div *ngIf="droit.modif; then active else desactiver"></div>
+                            <ng-template #active><i class="fa fa-check-circle fa-2x"
+                                    style="color:rgb(37, 158, 78);"></i>
+                            </ng-template>
+                            <ng-template #desactiver><i class="fa fa-times-circle fa-2x"
+                                    style="color:rgb(231, 12, 12);"></i>
+                            </ng-template>
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <p-inputSwitch [(ngModel)]="droit.supprime"></p-inputSwitch>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            <div *ngIf="droit.supprime; then active else desactiver"></div>
+                            <ng-template #active><i class="fa fa-check-circle fa-2x"
+                                    style="color:rgb(37, 158, 78);"></i>
+                            </ng-template>
+                            <ng-template #desactiver><i class="fa fa-times-circle fa-2x"
+                                    style="color:rgb(231, 12, 12);"></i>
+                            </ng-template>
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <p-inputSwitch [(ngModel)]="droit.archiver"></p-inputSwitch>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            <div *ngIf="droit.archiver; then active else desactiver"></div>
+                            <ng-template #active><i class="fa fa-check-circle fa-2x"
+                                    style="color:rgb(37, 158, 78);"></i>
+                            </ng-template>
+                            <ng-template #desactiver><i class="fa fa-times-circle fa-2x"
+                                    style="color:rgb(231, 12, 12);"></i>
+                            </ng-template>
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <p-inputSwitch [(ngModel)]="droit.suiviPhase"></p-inputSwitch>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            <div *ngIf="droit.suiviPhase; then active else desactiver"></div>
+                            <ng-template #active><i class="fa fa-check-circle fa-2x"
+                                    style="color:rgb(37, 158, 78);"></i>
+                            </ng-template>
+                            <ng-template #desactiver><i class="fa fa-times-circle fa-2x"
+                                    style="color:rgb(231, 12, 12);"></i>
+                            </ng-template>
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+
+                <td style="text-align:center">
+                    <button *ngIf="!editing" pButton type="button" pInitEditableRow icon="pi pi-pencil"
+                        class="ui-button-info" (click)="onRowEditInit(droit)" data-toggle="tooltip" data-placement="top"
+                        title="Modifier"></button>
+                    <button *ngIf="editing" pButton type="button" pSaveEditableRow icon="pi pi-check"
+                        class="ui-button-success" style="margin-right: .5em" (click)="onRowEditSave(droit)"></button>
+                    <button *ngIf="editing" pButton type="button" pCancelEditableRow icon="pi pi-times"
+                        class="ui-button-danger" (click)="onRowEditCancel(droit, ri)"></button>
+                    <button pButton *ngIf="!editing" type="button" icon="pi pi-trash" style="margin-right: .5em"
+                        class="ui-button-danger" (click)="showConfirm()" data-toggle="tooltip" data-placement="top"
+                        title="Supprimer"></button>
+                </td>
+            </tr>
+
+            <ng-template pTemplate="paginatorleft" let-state>
+                {{state.first}}
+                <button type="button" pButton icon="fa-refresh"></button>
+            </ng-template>
+            <ng-template pTemplate="paginatorright">
+                <button type="button" pButton icon="fa-cloud-upload"></button>
+            </ng-template>
+
+            <p-toast position="center" key="idDroitAcces" (onClose)="onReject()" [modal]="true" [baseZIndex]="5000">
+                <ng-template let-message pTemplate="message">
+                    <div style="text-align: center">
+                        <i class="pi pi-exclamation-triangle" style="font-size: 3em"></i>
+                        <h3>{{message.summary}}</h3>
+                        <p>{{message.detail}}</p>
+                    </div>
+                    <div class="ui-g ui-fluid">
+                        <div class="ui-g-6">
+                            <button type="button" pButton (click)="deleteDroit(droit.idDroitAcces)" label="Yes"
+                                class="ui-button-success"></button>
+                        </div>
+                        <div class="ui-g-6">
+                            <button type="button" pButton (click)="onReject()" label="No"
+                                class="ui-button-secondary"></button>
+                        </div>
+                    </div>
+                </ng-template>
+            </p-toast>
+
+        </ng-template>
+
+
+        <ng-template pTemplate="summary">
+            {{droitsAcces?.length}} Droit d'accès
+
+        </ng-template>
+
+
+
+    </p-table>
+
+</div>

@@ -1,0 +1,112 @@
+<p-breadcrumb style="position: relative; top:-35px;" [model]="items" [home]="home"></p-breadcrumb>
+<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+  <div class="panel panel-primary" style="border: 1px solid #35748b;">
+    <div class="panel-heading bg-primary">
+      <div class="row">
+
+        <div class="col-sm-10">
+          <h4><i class="fa fa-plus-circle"></i> Modifier Rendez-vous</h4>
+        </div>
+        <div class="col-sm-2">
+          <button routerLink="/rendez-vous" class="btn btn-inverse"><i
+              class="icofont icofont-arrow-left"></i>Retour</button></div>
+      </div>
+
+    </div>
+    <br>
+
+    <form [formGroup]="rdvForm" (ngSubmit)="updateRdv()">
+
+      <div class="panel-body">
+        <div class="container">
+
+          <div class="form-row">
+            <div class="form-group col-md-6">
+
+              <span class="ui-float-label">
+                <input type="text" id="titre" formControlName="titre" id="titreconsultation" class="form-control"
+                  size="30" pInputText size="30" required>
+
+                <label for="titreconsultation">Titre</label>
+              </span>
+              <div *ngIf="submitted && f.titre.invalid" style="color: red;">Titre est obligatoire
+              </div>
+            </div>
+
+
+            <div class="form-group col-md-6">
+              <p-multiSelect [options]="listUser" [style]="{'width':'100%','line-height': '1.25'}"
+                formControlName="user" optionLabel="nom">
+              </p-multiSelect>
+
+              <div *ngIf="submitted && f.user.invalid" style="color: red;">Utilisateur obligatoire
+              </div>
+            </div>
+
+          </div>
+
+          <div class="form-row">
+
+            <div class="form-group col-md-6">
+
+              <p-multiSelect optionLabel="nom" [options]="listIntervenant" formControlName="intervenant"
+                [panelStyle]="{minWidth:'12em'}" [style]="{'width':'100%','line-height': '1.25'}"></p-multiSelect>
+              <div *ngIf="submitted && f.intervenant.invalid" style="color: red;">Intervenant obligatoire
+              </div>
+
+            </div>
+
+           <div class="form-group col-md-6">
+
+              <p-dropdown [options]="etat" formControlName="etat" placeholder="Etat"
+                [style]="{'width':'100%','line-height': '1.25'}">
+              </p-dropdown>
+              <div *ngIf="submitted && f.etat.invalid" style="color: red;">Etat est obligatoire
+              </div>
+            </div>
+
+          </div>
+
+
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <span class="ui-float-label">
+                <textarea id="consultationdescription" class="form-control" formControlName="description" rows="5"
+                  cols="30" pInputTextarea required></textarea>
+                <label for="consultationdescription">Déscription</label>
+              </span>
+              <div *ngIf="submitted && f.description.invalid" style="color: red;">Déscription est obligatoire
+              </div>
+            </div>
+
+
+            <div class="form-group col-md-12">
+              <span class="ui-float-label">
+                <textarea id="consultationadresse"   class="form-control" formControlName="adresse" rows="5" cols="30"
+                  pInputTextarea required></textarea>
+                <label for="consultationadresse">Adresse</label>
+              </span>
+              <div *ngIf="submitted && f.adresse.invalid" style="color: red;">Adresse est obligatoire
+              </div>
+            </div>
+
+          </div>
+
+
+
+          <div class="form-row">
+            <div class="form-group col-md-8"></div>
+            <div class="form-group col-md-4">
+
+              <button type="submit" pButton label="Modifier" style="margin-right: .5em"
+                class="ui-button-success"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </form>
+
+  </div>
+</div>

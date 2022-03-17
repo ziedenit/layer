@@ -1,0 +1,154 @@
+<p-breadcrumb style="position: relative; top:-35px;" [model]="items" [home]="home"></p-breadcrumb>
+<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+  <div class="panel panel-primary" style="border: 1px solid #35748b;">
+      <div class="panel-heading bg-primary">
+          <div class="row">
+
+              <div class="col-sm-10">
+                  <h4><i class="fa fa-tasks" ></i>
+                    Détails Intervenant</h4>
+              </div>
+              <div class="col-sm-2">
+                  <button routerLink="/intervenant" class="btn btn-inverse"><i
+                          class="icofont icofont-arrow-left"></i>Retour</button></div>
+          </div>
+      </div>
+      <br>
+      <form [formGroup]="intervenantForm">
+        <div class="panel-body">
+          <div class="container">
+
+            <div class="form-row">
+              <div class="form-group col-md-6">
+
+                  <span class="ui-float-label">
+                      <input type="number" readonly="readonly" id="intervenantcin" formControlName="cin" id="intervenantcin"
+                          class="form-control" size="30" pInputText size="30" required>
+
+                      <label for="intervenantcin">Cin</label>
+                  </span>
+
+
+              </div>
+              <div class="form-group col-md-6">
+
+                <span class="ui-float-label">
+                    <input type="text" readonly="readonly" id="intervenantprofession" formControlName="profession" id="intervenantprofession"
+                        class="form-control" size="30" pInputText size="30" required>
+
+                    <label for="intervenantprofession">Profession</label>
+                </span>
+
+            </div>
+            </div>
+
+              <div class="form-row">
+                  <div class="form-group col-md-6">
+
+                      <span class="ui-float-label">
+                          <input type="text" id="name" readonly="readonly" formControlName="nom" id="intervenantname"
+                              class="form-control" size="30" pInputText size="30" required>
+                          <label for="intervenantname">Nom</label>
+                      </span>
+                      <div *ngIf="submitted && f.nom.invalid" style="color: red;">Nom est obligatoire
+                      </div>
+                  </div>
+
+                  <div class="form-group col-md-6">
+                      <span class="ui-float-label">
+                          <input type="text" readonly="readonly" formControlName="prenom" id="intervenantprenom" class="form-control"
+                              size="30" pInputText required>
+                          <label for="intervenantprenom">Prénom</label>
+                      </span>
+
+                  </div>
+              </div>
+              <div class="form-row">
+                  <div class="form-group col-md-6">
+
+                      <span class="ui-float-label">
+                          <input type="number"  readonly="readonly" formControlName="telephone" id="intervenanttelephone"
+                              class="form-control" pInputText required>
+
+                          <label for="intervenanttelephone">Téléphone</label>
+                      </span>
+                  </div>
+                  <div class="form-group col-md-6">
+
+                      <span class="ui-float-label">
+                          <input type="email" readonly="readonly" formControlName="email" id="intervenantemail" class="form-control"
+                              pInputText required>
+
+                          <label for="intervenantemail">Email</label>
+                      </span>
+                  </div>
+              </div>
+
+
+              <div class="form-row">
+                  <div class="form-group col-md-6">
+
+                      <span class="ui-float-label">
+                          <input type="text" readonly="readonly" formControlName="gouvernorat" id="intervenantgouvernorat"
+                              class="form-control" size="30" pInputText required>
+                          <label for="intervenantgouvernorat">Gouvernorat</label>
+                      </span>
+
+                  </div>
+
+                  <div class="form-group col-md-6">
+                      <span class="ui-float-label">
+                          <input type="text" readonly="readonly" formControlName="ville" id="intervenantville" class="form-control"
+                              size="30" pInputText required>
+                          <label for="intervenantville">Ville</label>
+                      </span>
+
+                  </div>
+              </div>
+              <div class="form-row">
+                  <div class="form-group col-md-6">
+                      <span class="ui-float-label">
+                          <input type="text" readonly="readonly" formControlName="adresse" id="intervenantadresse" class="form-control"
+                              size="30" pInputText required>
+                          <label for="intervenantadresse">Adresse</label>
+                      </span>
+
+                  </div>
+
+                  <div class="form-group col-md-6">
+                    <span class="ui-float-label">
+                        <input type="number" readonly="readonly" formControlName="codePostal" id="intervenantcodePostal" class="form-control"
+                            size="30" pInputText required>
+                        <label for="intervenantcodePostal">Code Postal</label>
+                    </span>
+
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <span class="ui-float-label">
+
+                      <p-calendar readonly="readonly" formControlName="dateNaissance" id="dateNaissance" dateFormat="yy-mm-dd" [showIcon]="true" ></p-calendar>
+                      <label for="dateNaissance">Date naissance</label>
+
+                  </span>
+
+              </div>
+
+                  <div class="form-group col-md-6">
+                      <p-dropdown [style]="{'width':'100%','line-height': '1.25'}" [options]="listTypeIntervenant"
+                          formControlName="typeintervenantId" optionLabel="typeintervenant"
+                          placeholder="Select Type intervenant"
+                          readonly="readonly"
+                          >
+                      </p-dropdown>
+
+                  </div>
+              </div>
+          </div>
+      </div>
+      </form>
+
+  </div>
+</div>

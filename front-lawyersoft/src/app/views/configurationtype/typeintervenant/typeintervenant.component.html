@@ -1,0 +1,82 @@
+<p-breadcrumb style="position: relative; top:-35px;" [model]="items" [home]="home"></p-breadcrumb>
+<div class="content p-24">
+  <div style="margin-left: 90%;margin-bottom: 2%">
+    <button type="button" pButton icon="fa fa-plus-circle" class="ui-button-rounded" (click)="addRow()"  label="Ajouter"></button>
+  </div>
+
+  <p-table [value]="listTypeIntervenant" dataKey="typeintervenantId" [paginator]="true" [rows]="5" [first]="first"
+    editMode="row"  #table>
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Type</th>
+        <th style="width:8em">Operations</th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-TypeIntervenant let-editing="editing" let-ri="rowIndex">
+      <tr [pEditableRow]="TypeIntervenant">
+
+        <td>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="text" [(ngModel)]="TypeIntervenant.typeintervenant" required>
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{TypeIntervenant.typeintervenant}}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+
+        <td style="text-align:center">
+
+          <button *ngIf="!editing" pButton type="button" pInitEditableRow icon="pi pi-pencil" class="ui-button-info"
+            (click)="onRowEditInit(TypeIntervenant)" data-toggle="tooltip" data-placement="top" title="Modifier"  ></button>
+          <button *ngIf="editing" pButton type="button" pSaveEditableRow icon="pi pi-check" class="ui-button-success"
+            style="margin-right: .5em" (click)="onRowEditSave(TypeIntervenant)"></button>
+          <button *ngIf="editing" pButton type="button" pCancelEditableRow icon="pi pi-times" class="ui-button-danger"
+            (click)="onRowEditCancel(TypeIntervenant, ri)"></button>
+            <button pButton *ngIf="!editing" type="button" icon="pi pi-trash" style="margin-right: .5em"
+            class="ui-button-danger" (click)="showConfirm()" data-toggle="tooltip" data-placement="top" title="Supprimer"  ></button>
+        </td>
+      </tr>
+
+      <ng-template pTemplate="paginatorleft" let-state>
+        {{state.first}}
+        <button type="button" pButton icon="fa-refresh"></button>
+      </ng-template>
+      <ng-template pTemplate="paginatorright">
+        <button type="button" pButton icon="fa-cloud-upload"></button>
+      </ng-template>
+
+
+
+      <p-toast position="center" key="typeintervenantId" (onClose)="onReject()" [modal]="true" [baseZIndex]="5000">
+        <ng-template  let-message  pTemplate="message">
+            <div style="text-align: center">
+                <i class="pi pi-exclamation-triangle" style="font-size: 3em"></i>
+                <h3>{{message.summary}}</h3>
+                <p>{{message.detail}}</p>
+            </div>
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-6">
+                    <button type="button" pButton (click)="deletetypeintervenant(TypeIntervenant.typeintervenantId)" label="Yes" class="ui-button-success"></button>
+                </div>
+                <div class="ui-g-6">
+                    <button type="button" pButton (click)="onReject()" label="No" class="ui-button-secondary"></button>
+                </div>
+            </div>
+        </ng-template>
+      </p-toast>
+
+    </ng-template>
+
+
+    <ng-template pTemplate="summary">
+      There are {{listTypeIntervenant?.length}} Type Intervenant
+
+    </ng-template>
+
+
+  </p-table>
+</div>
+<p-toast [style]="{marginTop: '80px'}"></p-toast>

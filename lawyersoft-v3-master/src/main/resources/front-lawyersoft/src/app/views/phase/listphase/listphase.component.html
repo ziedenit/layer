@@ -1,0 +1,73 @@
+<p-dataView #dv [value]="listPhase" paginatorPosition="both" filterBy="brand"
+>
+<p-header>
+    <div class="ui-helper-clearfix">
+        <div class="ui-g">
+
+            <div class="ui-g-6 ui-md-4 filter-container">
+                <div style="position:relative">
+                    <input type="search" pInputText placeholder="Search by brand" (input)="dv.filter($event.target.value)">
+                </div>
+            </div>
+            <div class="ui-g-6 ui-md-4" style="text-align:right">
+                <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+            </div>
+        </div>
+    </div>
+</p-header>
+<ng-template let-Phase pTemplate="listItem">
+    <div class="ui-g-12" >
+        <div class="car-details">
+          <div class="form-row">
+            <div class="form-group col-md-6">
+
+            <div class="ui-g-12">Nom: <b>{{Phase.nom}}</b></div>
+                    <div class="ui-g-12" >Etat:
+                      <b *ngIf="Phase.current == 1">Phase Courant</b>
+                      <b *ngIf="Phase.current == 0">Phase non Courant</b>
+                    </div>
+                    <div class="ui-g-12">Référence de bureau: <b>{{Phase.affaireId.reference}}</b></div>
+
+            </div>
+            <div class="form-group col-md-6">
+                <div class="ui-g">
+                    <div class="ui-g-12">Titre de l'affaire: <b>{{Phase.affaireId.titre}}</b></div>
+                    <div class="ui-g-12">Référance tribunal: <b>{{Phase.affaireId.reference}}</b></div>
+                </div>
+
+                <div class="form-group col-md-6">
+
+                  <div *ngIf="Phase.current == 1 ; then active else desactiver"></div>
+
+                  <ng-template #active>
+                  <a  [routerLink]="['/phase/operation', Phase.phaseId ]">
+                  <button   pButton type="button" icon="fa fa-gear" data-toggle="tooltip" data-placement="top" title="Opération" ></button>
+                  </a>
+                </ng-template>
+
+                <ng-template #desactiver>
+
+                  <button   pButton type="button" icon="fa fa-gear" data-toggle="tooltip" data-placement="top" title="Opération" ></button>
+
+                </ng-template>
+
+                  </div>
+            </div>
+
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<!--<ng-template let-car pTemplate="gridItem">
+    <div style="padding:.5em" class="ui-g-12 ui-md-3">
+        <p-panel [header]="car.vin" [style]="{'text-align':'center'}">
+            <img src="assets/showcase/images/demo/car/{{car.brand}}.png" width="60">
+            <div class="car-detail">{{car.year}} - {{car.color}}</div>
+            <hr class="ui-widget-content" style="border-top:0">
+            <button pButton type="button" icon="pi pi-search" (click)="selectCar($event, car)" style="margin-top:0"></button>
+        </p-panel>
+    </div>
+</ng-template>
+-->
+</p-dataView>

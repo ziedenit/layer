@@ -1,0 +1,49 @@
+<p-dialog header="Ajouter travaux à faire" [(visible)]="displayBasicadd" [style]="{'width': '500px','height': '110px'}">
+  <form [formGroup]="tacheForm" (ngSubmit)="addtache()" style="height: 110px;">
+
+    <div class="form-row">
+      <div class="form-group col-md-6">
+
+        <span class="ui-float-label">
+          <input type="text" formControlName="titre" class="form-control" id="titretache" size="30" pInputText size="30"
+            required>
+          <label for="titretache">Titre</label>
+        </span>
+        <div *ngIf="submitted && f1.titre.invalid" style="color: red;">Titre est obligatoire
+        </div>
+      </div>
+
+      <div class="form-group col-md-6">
+        <p-dropdown  [options]="etat" formControlName="etat" placeholder="Etat"
+          [style]="{'width':'100%','line-height': '1.25'}" >
+        </p-dropdown>
+        <!--<div *ngIf="submitted && f1.etat.invalid" style="color: red;">Etat est obligatoire
+        </div>-->
+      </div>
+
+      <div class="form-group col-md-6">
+        <span class="ui-float-label">
+
+          <p-calendar formControlName="dateDebut" [style]="{'position': 'fixed', 'overflow': 'visible'}" id="date"
+            [showTime]="true" [showIcon]="true" dateFormat="yy.mm.dd"></p-calendar>
+          <label for="date">Date travaux à faire</label>
+
+        </span>
+        <div *ngIf="submitted && f1.dateDebut.invalid" style="color: red;">Date travaux à faire est obligatoire
+        </div>
+      </div>
+
+
+
+      <div class="form-group col-md-6">
+        <p-footer>
+          <button type="submit" pButton style="margin-right: .5em" class="btn btn-primary" label="Ajouter"></button>
+          <button type="button" pButton (click)="displayBasicadd=false" label="Annuler" style="margin-right: .5em"
+            class="ui-button-danger"></button>
+        </p-footer>
+      </div>
+    </div>
+
+  </form>
+</p-dialog>
+<p-toast [style]="{marginTop: '80px'}"></p-toast>

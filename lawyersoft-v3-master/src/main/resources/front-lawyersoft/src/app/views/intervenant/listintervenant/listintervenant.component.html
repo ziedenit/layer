@@ -1,0 +1,89 @@
+<p-breadcrumb style="position: relative; top:-35px;" [model]="items" [home]="home"></p-breadcrumb>
+<p-table #tt [columns]="cols" [value]="listIntervenant" [paginator]="true" [rows]="10" [first]="first"
+   selectionMode="single" [(selection)]="selectedIntervenant"
+    [(contextMenuSelection)]="selectedIntervenant"
+    [globalFilterFields]="[
+    'cin',
+    'nom',
+    'prenom',
+    'telephone',
+    'adresse'
+  ]"
+    >
+
+    <ng-template pTemplate="caption">
+      <div style="align-content: center;">Liste des intervenants</div>
+      <div class="ui-g">
+        <div class="ui-g-12">
+          <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+          <input
+            type="text"
+            pInputText
+            size="50"
+            placeholder="Filtre Globale"
+            (input)="tt.filterGlobal($event.target.value, 'contains')"
+            style="width:auto"
+          />
+        </div>
+      </div>
+        <a routerLink="/intervenant/ajouter">
+            <button pButton label="Ajouter" icon="fa fa-plus-circle" style="position: relative; left: 350px; top: -40px"
+                class="ui-button-rounded"></button>
+        </a>
+    </ng-template>
+
+
+    <ng-template pTemplate="header" let-columns>
+
+        <tr>
+            <th *ngFor="let col of columns" >
+                {{col.header}}
+            </th>
+            <th style="align-items: center;">Operations</th>
+        </tr>
+
+    </ng-template>
+
+    <ng-template pTemplate="body" let-Intervenant>
+        <tr>
+            <td>{{Intervenant.cin}}</td>
+            <td>{{Intervenant.nom}}</td>
+            <td>{{Intervenant.prenom}}</td>
+            <td>{{Intervenant.telephone}}</td>
+            <td>{{Intervenant.adresse}}</td>
+
+            <td style="text-align:center">
+                <a [routerLink]="['/intervenant/update', Intervenant.intervenantid ]">
+                    <button pButton type="button" icon="pi pi-pencil" class="ui-button-info"
+                        style="margin-right: .5em" data-toggle="tooltip" data-placement="top" title="Mise à jour"></button>
+                </a>
+                <a [routerLink]="['/intervenant/details', Intervenant.intervenantid ]">
+                  <button pButton type="button" icon="fa fa-tasks" class="ui-button-info"
+                      style="margin-right: .5em" data-toggle="tooltip" data-placement="top" title="Détails"></button>
+                </a>
+                 <button pButton type="button" (click)="confirm2(Intervenant.intervenantid)" icon="fa fa-trash"
+                    class="ui-button-danger" data-toggle="tooltip" data-placement="top" title="Supprimer"></button>
+            </td>
+        </tr>
+
+
+
+        <ng-template pTemplate="paginatorleft" let-state>
+            {{state.first}}
+            <button type="button" pButton icon="fa-refresh"></button>
+        </ng-template>
+
+        <ng-template pTemplate="paginatorright">
+            <button type="button" pButton icon="fa-cloud-upload"></button>
+        </ng-template>
+
+    </ng-template>
+
+
+    <ng-template pTemplate="summary">
+        {{listIntervenant?.length}} Intervenants
+
+    </ng-template>
+
+</p-table>
+<p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>

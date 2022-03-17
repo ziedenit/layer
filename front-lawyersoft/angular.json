@@ -1,0 +1,182 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "front-lawyersoft": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "styleext": "css",
+          "spec": false
+        },
+        "@schematics/angular:class": {
+          "spec": false
+        },
+        "@schematics/angular:directive": {
+          "spec": false
+        },
+        "@schematics/angular:guard": {
+          "spec": false
+        },
+        "@schematics/angular:module": {
+          "spec": false
+        },
+        "@schematics/angular:pipe": {
+          "spec": false
+        },
+        "@schematics/angular:service": {
+          "spec": false
+        }
+      },
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/front-lawyersoft",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.css",
+              "src/assets/bower_components/bootstrap/css/bootstrap.min.css",
+              "src/assets/css/style.css",
+              "src/assets/icon/font-awesome/css/font-awesome.min.css",
+              "src/assets/icon/material-design/css/material-design-iconic-font.min.css",
+              "src/assets/icon/feather/css/feather.css",
+              "src/assets/icon/icofont/css/icofont.css",
+              "src/assets/css/jquery.mCustomScrollbar.css",
+              "node_modules/primeicons/primeicons.css",
+              "node_modules/primeng/resources/themes/nova-light/theme.css",
+              "node_modules/primeng/resources/primeng.min.css",
+              "src/assets/css/fullcalendar.min.css",
+              "src/assets/bower_components/jquery.steps/css/jquery.steps.css"
+            ],
+            "scripts": [
+              "src/assets/bower_components/jquery/js/jquery.min.js",
+              "src/assets/bower_components/jquery-ui/js/jquery-ui.min.js",
+              "src/assets/bower_components/popper.js/js/popper.min.js",
+              "src/assets/bower_components/bootstrap/js/bootstrap.min.js",
+              "src/assets/pages/widget/amchart/amcharts.js",
+              "src/assets/pages/widget/amchart/serial.js",
+              "src/assets/pages/widget/amchart/light.js",
+              "src/assets/js/pcoded.min.js",
+              "src/assets/js/vartical-layout.min.js",
+              "src/assets/bower_components/jquery-slimscroll/jquery.slimscroll.js",
+              "src/assets/bower_components/modernizr/modernizr.js",
+              "src/assets/bower_components/modernizr/css-scrollbars.js",
+              "src/assets/js/jquery.mCustomScrollbar.concat.min.js",
+              "src/assets/js/script.min.js",
+              "src/assets/js/moment.min.js",
+              "src/assets/js/fullcalendar.min.js",
+              "src/assets/js/Chart.js",
+              "src/assets/bower_components/jquery.steps/js/jquery.steps.js"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "front-lawyersoft:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "front-lawyersoft:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "front-lawyersoft:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "src/test.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.spec.json",
+            "karmaConfig": "karma.conf.js",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.css"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "tsconfig.app.json",
+              "tsconfig.spec.json",
+              "e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "e2e/protractor.conf.js",
+            "devServerTarget": "front-lawyersoft:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "front-lawyersoft:serve:production"
+            }
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "front-lawyersoft",
+  "cli": {
+    "analytics": false
+  }
+}

@@ -1,0 +1,76 @@
+<p-dialog header="Ajouter Lecteur de jugement" [(visible)]="displayBasic" [style]="{width: '50vw'}"
+  [baseZIndex]="10000">
+
+  <form [formGroup]="lecteurjugementForm" enctype="multipart/form-data" (ngSubmit)="addlecteurjugement()">
+
+
+    <div class="form-row">
+      <div class="form-group col-md-12">
+        <p-fileUpload name="file[]" [showUploadButton]="false" (onUpload)="onUpload($event)" customUpload="true"
+          (uploadHandler)="myUploader($event)" (onSelect)="onUpload($event)">
+
+        </p-fileUpload>
+
+      </div>
+    </div>
+
+
+    <div class="form-row">
+      <div class="form-group col-md-12">
+        <span class="ui-float-label">
+          <textarea class="form-control" id="fichierdescription" formControlName="description" size="30" pInputText
+            size="30" required></textarea>
+          <label for="fichierdescription">Déscription</label>
+        </span>
+        <div *ngIf="submitted && f.description.invalid" style="color: red;">Description est obligatoire
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <p-inputSwitch formControlName="favorable"></p-inputSwitch>
+      </div>
+
+    </div>
+
+
+    <div class="form-row">
+      <div class="form-group col-md-6">
+
+        <div class="ui-g" style="width:250px;margin-bottom:10px">
+          <div class="ui-g-12">
+            <p-radioButton name="group1" [(ngModel)]="nom" [ngModelOptions]="{standalone: true}" value="Phase 2"
+              label="Phase 2" inputId="opt1"></p-radioButton>
+            {{nom}}
+          </div>
+          <div class="ui-g-12">
+            <p-radioButton name="group1" [(ngModel)]="nom" [ngModelOptions]="{standalone: true}" value="Phase 3"
+              label="Phase 3" inputId="opt2"></p-radioButton>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="form-group col-md-6">
+
+        <div class="ui-g" style="width:250px;margin-bottom:10px">
+          <div class="ui-g-12">
+            <p-radioButton name="group1" [(ngModel)]="etat" [ngModelOptions]="{standalone: true}" value="Archivé"
+              label="Archivé affaire" inputId="opt3"></p-radioButton>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+    <p-footer>
+      <button type="submit" pButton style="margin-right: .5em" class="btn btn-primary" label="Enregistrer"></button>
+      <button type="button" pButton (click)="displayBasic=false" label="Annuler" style="margin-right: .5em"
+        class="ui-button-danger"></button>
+    </p-footer>
+
+  </form>
+
+</p-dialog>

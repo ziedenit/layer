@@ -1,0 +1,12 @@
+<p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
+ <p-fullCalendar [events]="[{
+    title: link.titre,
+    start: link.dateDebut,
+    editable: true,
+    eventLimit: true,
+    multipleEvent:true
+     }]" [options]="options">
+
+  </p-fullCalendar>
+
+

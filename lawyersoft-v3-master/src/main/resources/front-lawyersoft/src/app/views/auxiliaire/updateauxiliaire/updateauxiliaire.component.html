@@ -1,0 +1,141 @@
+<p-breadcrumb style="position: relative; top:-35px;" [model]="items" [home]="home"></p-breadcrumb>
+<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+    <div class="panel panel-primary" style="border: 1px solid #35748b;">
+        <div class="panel-heading bg-primary">
+            <div class="row">
+
+                <div class="col-sm-10">
+                    <h4><i class="fa fa-pencil" ></i> Modifier Auxiliaire</h4>
+                </div>
+                <div class="col-sm-2">
+                    <button routerLink="/auxiliaire" class="btn btn-inverse"><i
+                            class="icofont icofont-arrow-left"></i>Retour</button></div>
+            </div>
+        </div>
+        <br>
+        <form [formGroup]="auxiliaireForm" (ngSubmit)="updateAuxiliaire()">
+            <div class="panel-body">
+                <div class="container">
+
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+
+                            <span class="ui-float-label">
+                                <input type="text" id="name" formControlName="nom" id="auxiliairename"
+                                    class="form-control" size="30" pInputText size="30" required>
+
+                                <label for="auxiliairename">Nom</label>
+                            </span>
+                            <div *ngIf="submitted && f.nom.invalid" style="color: red;">Nom est obligatoire
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <span class="ui-float-label">
+                                <input type="text" formControlName="prenom" id="auxiliaireprenom" class="form-control"
+                                    size="30" pInputText required>
+                                <label for="auxiliaireprenom">Prénom</label>
+                            </span>
+                            <div *ngIf="submitted && f.prenom.invalid" style="color: red;">Prénom est obligatoire
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+
+                            <span class="ui-float-label">
+                                <input type="number" formControlName="telephone" id="auxiliairetelephone"
+                                    class="form-control" pInputText required>
+
+                                <label for="auxiliairetelephone">Telephone</label>
+                            </span>
+                            <div *ngIf="submitted && f.telephone.invalid" style="color: red;">
+                                Telephone est obligatoire
+                            </div>
+                            <div *ngIf="f.telephone.errors!=null">
+                                <div *ngIf="f.telephone.errors.max" style="color: red;">Taille > 8 </div>
+                            </div>
+
+                        </div>
+                        <div class="form-group col-md-6">
+
+                            <span class="ui-float-label">
+                                <input type="email" formControlName="email" id="auxiliaireemail" class="form-control"
+                                    pInputText required>
+
+                                <label for="auxiliaireemail">Email</label>
+                            </span>
+
+                            <div *ngIf="submitted && f.email.invalid" style="color: red;">Email est obligatoire
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+
+                            <span class="ui-float-label">
+                                <input type="text" formControlName="gouvernorat" id="auxiliairegouvernorat"
+                                    class="form-control" size="30" pInputText required>
+                                <label for="auxiliairegouvernorat">gouvernorat</label>
+                            </span>
+                            <div *ngIf="submitted && f.gouvernorat.invalid" style="color: red;">Gouvernorat est obligatoire
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <span class="ui-float-label">
+                                <input type="text" formControlName="ville" id="auxiliaireville" class="form-control"
+                                    size="30" pInputText required>
+                                <label for="auxiliaireville">Ville</label>
+                            </span>
+                            <div *ngIf="submitted && f.ville.invalid" style="color: red;">Ville est obligatoire
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <span class="ui-float-label">
+                                <input type="text" formControlName="adresse" id="auxiliaireadresse" class="form-control"
+                                    size="30" pInputText required>
+                                <label for="auxiliaireadresse">Adresse</label>
+                            </span>
+                            <div *ngIf="submitted && f.adresse.invalid" style="color: red;">Adresse est obligatoire
+                            </div>
+                        </div>
+                          <div class="form-group col-md-6">
+
+                            <span class="ui-float-label">
+                            <p-dropdown [style]="{'width':'100%'}" [options]="listTypeAuxiliaire"
+                                formControlName="typeauxiliaireId" optionLabel="typeauxiliaire" editable="true"
+                                placeholder="Select Type auxiliaire" id="typeauxiliaire">
+                            </p-dropdown>
+                            <label for="typeauxiliaire">Type</label>
+                            </span>
+                            <div *ngIf="submitted && f.typeauxiliaireId.invalid" style="color: red;">Type                               est obligatoire
+
+                            </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            <div class="panel-footer text-primary">
+                <div class="row">
+
+                  <div class="form-group mx-sm-3 mb-2">
+                    <button type="submit" pButton label="Modifier" style="margin-right: .5em" class="ui-button-success"></button>
+
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>

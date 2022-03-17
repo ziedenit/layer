@@ -1,0 +1,138 @@
+<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+  <div class="panel panel-primary" style="border: 1px solid #35748b;">
+    <div class="panel-heading bg-primary">
+      <div class="row">
+
+        <div class="col-sm-10">
+          <h4><i class="fa fa-plus-circle"></i> Ajouter Rendez-vous</h4>
+        </div>
+        <div class="col-sm-2">
+          <button routerLink="/rendez-vous" class="btn btn-inverse"><i
+              class="icofont icofont-arrow-left"></i>Retour</button></div>
+      </div>
+
+    </div>
+    <br>
+
+    <form [formGroup]="rdvForm" (ngSubmit)="addrendezvous()">
+      <div class="panel-body">
+        <div class="container">
+
+          <div class="form-row">
+            <div class="form-group col-md-6">
+
+              <span class="ui-float-label">
+                <input type="text" id="titre" formControlName="titre" id="titreconsultation" class="form-control"
+                  size="30" pInputText size="30" required>
+
+                <label for="titreconsultation">Titre</label>
+              </span>
+              <div *ngIf="submitted && f.titre.invalid" style="color: red;">Titre est obligatoire
+              </div>
+            </div>
+
+
+            <div class="form-group col-md-6">
+              <p-multiSelect [options]="listUser" formControlName="user" [panelStyle]="{minWidth:'12em'}"
+              [style]="{'width':'100%','line-height': '1.25'}">
+              <ng-template let-value pTemplate="selectedItems">
+                <div *ngFor="let val of value" class="ui-multiselected-item-token ui-corner-all">
+                  <span>{{val.nom}} {{val.prenom}}</span>
+                </div>
+                <span *ngIf="!value || value.length === 0"
+                  class="ui-multiselected-empty-token ui-corner-all">Choose</span>
+              </ng-template>
+              <ng-template let-user pTemplate="item">
+
+                <div style="font-size:14px;float:right;margin-top:4px">{{user.label}}</div>
+              </ng-template>
+            </p-multiSelect>
+
+              <div *ngIf="submitted && f.user.invalid" style="color: red;">Utilisateur obligatoire
+              </div>
+            </div>
+
+          </div>
+
+          <div class="form-row">
+
+            <div class="form-group col-md-6">
+
+              <p-multiSelect [options]="listIntervenant" formControlName="intervenant"
+                  [panelStyle]="{minWidth:'12em'}" [style]="{'width':'100%','line-height': '1.25'}">
+                  <ng-template let-value pTemplate="selectedItems">
+                    <div *ngFor="let val of value" class="ui-multiselected-item-token ui-corner-all">
+                      <span>{{val.nom}} {{val.prenom}}</span>
+                    </div>
+                    <span *ngIf="!value || value.length === 0"
+                      class="ui-multiselected-empty-token ui-corner-all">Choose</span>
+                  </ng-template>
+                  <ng-template let-inter pTemplate="item">
+
+                    <div style="font-size:14px;float:right;margin-top:4px">{{inter.label}}</div>
+                  </ng-template>
+                </p-multiSelect>
+
+              <div *ngIf="submitted && f.intervenant.invalid" style="color: red;">Intervenant obligatoire
+              </div>
+
+            </div>
+
+            <div class="form-group col-md-6">
+              <span class="ui-float-label">
+
+                <p-calendar formControlName="dateDebut"  id="date" [showTime]="true" [showIcon]="true" dateFormat="yy.mm.dd"></p-calendar>
+                <label for="date">Date Rendez-vous</label>
+
+              </span>
+              <div *ngIf="submitted && f.dateDebut.invalid" style="color: red;">Date Rendez-vous est obligatoire
+              </div>
+            </div>
+
+          </div>
+
+
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <span class="ui-float-label">
+                <textarea id="consultationdescription" class="form-control" formControlName="description" rows="5"
+                  cols="30" pInputTextarea required></textarea>
+                <label for="consultationdescription">Déscription</label>
+              </span>
+              <div *ngIf="submitted && f.description.invalid" style="color: red;">Déscription est obligatoire
+              </div>
+            </div>
+
+
+            <div class="form-group col-md-12">
+              <span class="ui-float-label">
+                <textarea id="consultationadresse" class="form-control" formControlName="adresse" rows="5" cols="30"
+                  pInputTextarea required></textarea>
+                <label for="consultationadresse">Adresse</label>
+              </span>
+              <div *ngIf="submitted && f.adresse.invalid" style="color: red;">Adresse est obligatoire
+              </div>
+            </div>
+
+          </div>
+
+
+
+          <div class="form-row">
+            <div class="form-group col-md-8"></div>
+            <div class="form-group col-md-4">
+
+              <button type="submit" pButton label="Soumettre" style="margin-right: .5em"
+                class="ui-button-success"></button>
+
+              <button type="button" pButton type="button" (click)="resetRdvForm()" label="Réinitialiser"
+                style="margin-right: .5em" class="ui-button-raised ui-button-danger"></button>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+
+  </div>
+</div>

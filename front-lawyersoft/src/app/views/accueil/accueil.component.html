@@ -1,0 +1,11 @@
+<p-breadcrumb style="position: relative; top:-35px;" [model]="items" [home]="home"></p-breadcrumb>
+<div class="form-row">
+  <div class="form-group col-md-6">
+    <div>Consultation {{today | date:'MMMM'}}</div>
+    <p-chart type="polarArea" [data]="data2"></p-chart>
+  </div>
+  <div class="form-group col-md-6">
+    <div style="position: relative; align-content: centre;">Audiance</div>
+    <p-chart type="pie" [data]="data3"></p-chart>
+  </div>
+</div>

@@ -1,0 +1,226 @@
+<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+  <div class="panel panel-primary" style="border: 1px solid #35748b;">
+    <div class="panel-heading bg-primary">
+      <div class="row">
+
+        <div class="col-sm-10">
+          <h4><i class="fa fa-plus-circle"></i> Ajouter Affaire</h4>
+        </div>
+        <div class="col-sm-2">
+          <button routerLink="/affaire" class="btn btn-inverse"><i
+              class="icofont icofont-arrow-left"></i>Retour</button></div>
+      </div>
+
+    </div>
+    <br>
+
+    <form [formGroup]="affaireForm" (ngSubmit)="addaffaire()">
+
+      <div class="panel-body">
+        <div class="container">
+
+          <div class="form-row">
+            <div class="form-group col-md-12">
+
+              <p-fieldset legend="Inforamtions">
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+
+                    <span class="ui-float-label">
+                      <input type="text" id="titre" formControlName="titre" id="titreaffaire" class="form-control"
+                        size="30" pInputText size="30" required>
+
+                      <label for="titreaffaire">Titre</label>
+                    </span>
+                    <div *ngIf="submitted && f.titre.invalid" style="color: red;">Titre est obligatoire
+                    </div>
+                  </div>
+
+                  <div class="form-group col-md-6">
+                    <p-dropdown [options]="listTypeaffaire" formControlName="typeaffaireId" optionLabel="typeaffaire"
+                      placeholder="Type affaire" [style]="{'width':'100%','line-height': '1.25'}"></p-dropdown>
+                    <div *ngIf="submitted && f.typeaffaireId.invalid" style="color: red;">Type est obligatoire
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <p-dropdown [options]="etats" formControlName="etat" placeholder="Etat"
+                      [style]="{'width':'100%','line-height': '1.25'}">
+                    </p-dropdown>
+                    <div *ngIf="submitted && f.etat.invalid" style="color: red;">Etat est obligatoire
+                    </div>
+                  </div>
+
+                  <div class="form-group col-md-6">
+                    <span class="ui-float-label">
+                      <input type="text" formControlName="reference" id="referenceaffaire" class="form-control"
+                        size="30" pInputText required>
+                      <label for="referenceaffaire">Référence</label>
+                    </span>
+                    <div *ngIf="submitted && f.reference.invalid" style="color: red;">Référence est obligatoire
+                    </div>
+                  </div>
+
+                </div>
+              </p-fieldset>
+            </div>
+          </div>
+
+
+          <div class="form-row">
+            <div class="form-group col-md-12">
+
+              <p-fieldset legend="Phases">
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+
+                    <div class="d-flex justify-content-center">
+                      <div class="ui-g-12">
+                        <p-radioButton name="group1" [(ngModel)]="phase.nom" [ngModelOptions]="{standalone: true}"
+                          value="Phase 1" label="Phase 1" inputId="opt1"></p-radioButton>
+                      </div>
+                      <div class="ui-g-12">
+                        <p-radioButton name="group1" [(ngModel)]="phase.nom" [ngModelOptions]="{standalone: true}"
+                          value="Phase 2" label="Phase 2" inputId="opt2"></p-radioButton>
+                      </div>
+                      <div class="ui-g-12">
+                        <p-radioButton name="group1" [(ngModel)]="phase.nom" [ngModelOptions]="{standalone: true}"
+                          value="Phase 3" label="Phase 3" inputId="opt3"></p-radioButton>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group col-md-6">
+
+                    <p-dropdown style="margin-right: .5em" optionLabel="nom" [options]="listTribunal"
+                      [(ngModel)]="phase.tribunalId" [ngModelOptions]="{standalone: true}" placeholder="tribunal">
+                    </p-dropdown>
+
+                  </div>
+                </div>
+              </p-fieldset>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-md-12">
+
+              <p-fieldset legend="Intervenant" [toggleable]="true">
+
+                <p-multiSelect [options]="listIntervenant" formControlName="intervenant"
+                  [panelStyle]="{minWidth:'12em'}" [style]="{'width':'100%','line-height': '1.25'}">
+                  <ng-template let-value pTemplate="selectedItems">
+                    <div *ngFor="let val of value" class="ui-multiselected-item-token ui-corner-all">
+                      <span>{{val.nom}} {{val.prenom}}</span>
+                    </div>
+                    <span *ngIf="!value || value.length === 0"
+                      class="ui-multiselected-empty-token ui-corner-all">Choose</span>
+                  </ng-template>
+                  <ng-template let-inter pTemplate="item">
+
+                    <div style="font-size:14px;float:right;margin-top:4px">{{inter.label}}</div>
+                  </ng-template>
+                </p-multiSelect>
+
+
+                <div *ngIf="submitted && f.intervenant.invalid" style="color: red;">Intervenant obligatoire
+                </div>
+
+
+              </p-fieldset>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <p-fieldset legend="Auxiliaire" [toggleable]="true">
+
+                <p-multiSelect [options]="listAuxiliaire" formControlName="auxiliaire" [panelStyle]="{minWidth:'12em'}"
+                  [style]="{'width':'100%','line-height': '1.25'}">
+                  <ng-template let-value pTemplate="selectedItems">
+                    <div *ngFor="let val of value" class="ui-multiselected-item-token ui-corner-all">
+                      <span>{{val.nom}} {{val.prenom}}</span>
+                    </div>
+                    <span *ngIf="!value || value.length === 0"
+                      class="ui-multiselected-empty-token ui-corner-all">Choose</span>
+                  </ng-template>
+                  <ng-template let-inter pTemplate="item">
+
+                    <div style="font-size:14px;float:right;margin-top:4px">{{inter.label}}</div>
+                  </ng-template>
+                </p-multiSelect>
+                <div *ngIf="submitted && f.auxiliaire.invalid" style="color: red;">Auxiliaire obligatoire
+                </div>
+
+              </p-fieldset>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <p-fieldset legend="Utilisateur" [toggleable]="true">
+                <p-multiSelect [options]="listUser" formControlName="user" [panelStyle]="{minWidth:'12em'}"
+                  [style]="{'width':'100%','line-height': '1.25'}">
+                  <ng-template let-value pTemplate="selectedItems">
+                    <div *ngFor="let val of value" class="ui-multiselected-item-token ui-corner-all">
+                      <span>{{val.nom}} {{val.prenom}}</span>
+                    </div>
+                    <span *ngIf="!value || value.length === 0"
+                      class="ui-multiselected-empty-token ui-corner-all">Choose</span>
+                  </ng-template>
+                  <ng-template let-user pTemplate="item">
+
+                    <div style="font-size:14px;float:right;margin-top:4px">{{user.label}}</div>
+                  </ng-template>
+                </p-multiSelect>
+
+                <div *ngIf="submitted && f.user.invalid" style="color: red;">Utilisateur obligatoire
+                </div>
+              </p-fieldset>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <p-fieldset legend="Honoraire" [toggleable]="true">
+                <span class="ui-float-label">
+                  <input type="text" [(ngModel)]="honnoraire.titre" id="honorairetitre" class="form-control"
+                    [ngModelOptions]="{standalone: true}" size="30" pInputText required>
+                  <label for="honorairetitre">titre</label>
+                </span>
+
+              </p-fieldset>
+            </div>
+          </div>
+
+
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <span class="ui-float-label">
+                <textarea id="affairedescription" class="form-control" formControlName="description" rows="5" cols="30"
+                  pInputTextarea required></textarea>
+                <label for="affairedescription">Déscription</label>
+              </span>
+              <div *ngIf="submitted && f.description.invalid" style="color: red;">Déscription est obligatoire
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-8"></div>
+            <div class="form-group col-md-4">
+              <button type="submit" pButton label="Soumettre" style="margin-right: .5em"
+                class="ui-button-success"></button>
+
+              <button type="button" pButton type="button" (click)="resetAffaireForm()" label="Réinitialiser"
+                style="margin-right: .5em" class="ui-button-raised ui-button-danger"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+
+  </div>
+</div>

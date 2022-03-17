@@ -1,0 +1,160 @@
+<p-table #tt [columns]="cols" [value]="listFichier" [paginator]="true" [rows]="4" [first]="first" selectionMode="single"
+  [(selection)]="selectedFichier" [(contextMenuSelection)]="listFichier">
+
+  <ng-template pTemplate="caption">
+
+    <div style="align-content: right;"><i class="fa fa-navicon"></i> Liste des Fichiers</div>
+
+    <button pButton label="Ajouter un fichier" icon="fa fa-plus-circle" style="position: relative; left: 350px;"
+      class="ui-button-rounded" (click)="showBasicDialog()"></button>
+
+  </ng-template>
+
+  <ng-template pTemplate="header" let-columns>
+
+    <tr>
+      <th *ngFor="let col of columns">
+        {{col.header}}
+      </th>
+      <th style="align-items: center;">Operations</th>
+    </tr>
+
+  </ng-template>
+
+  <ng-template pTemplate="body" let-Fichier>
+    <tr>
+      <td>{{Fichier.nom}}</td>
+      <td>{{Fichier.description}}</td>
+
+
+      <td style="text-align:center">
+        <button pButton type="button" icon="pi pi-pencil" class="ui-button-info"
+          (click)="showBasicDialogupdate(Fichier.fichierId)" style="margin-right: .5em" data-toggle="tooltip"
+          data-placement="top" title="Mise à jour"></button>
+
+        <!--<a [routerLink]="['/fichier/fichierdossier', Dossier.dossierId ]">
+          <button pButton type="button" icon="fa fa-folder-o" class="ui-button-info" style="margin-right: .5em"
+            data-toggle="tooltip" data-placement="top" title="Ouvrir"></button>
+        </a>-->
+
+        <button pButton type="button" (click)="confirm2(Fichier.fichierId)" icon="fa fa-trash" class="ui-button-danger"
+          data-toggle="tooltip" data-placement="top" title="Supprimer"></button>
+      </td>
+    </tr>
+
+
+    <ng-template pTemplate="paginatorleft" let-state>
+      {{state.first}}
+      <button type="button" pButton icon="fa-refresh"></button>
+    </ng-template>
+
+    <ng-template pTemplate="paginatorright">
+      <button type="button" pButton icon="fa-cloud-upload"></button>
+    </ng-template>
+
+  </ng-template>
+
+
+  <ng-template pTemplate="summary">
+    {{listFichier?.length}} Fichiers
+
+  </ng-template>
+
+</p-table>
+<p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
+
+
+<p-dialog header="Ajouter Fichier" [(visible)]="displayBasic" [style]="{width: '50vw'}">
+
+
+
+  <form [formGroup]="fichierForm" enctype="multipart/form-data" (ngSubmit)="addfichier()">
+
+
+    <div class="form-row">
+      <div class="form-group col-md-12">
+
+
+        <p-fileUpload name="file[]" [showUploadButton]="false" (onUpload)="onUpload($event)" customUpload="true"
+          (uploadHandler)="myUploader($event)" (onSelect)="onUpload($event)">
+
+        </p-fileUpload>
+
+
+      </div>
+    </div>
+
+
+    <div class="form-row">
+      <div class="form-group col-md-12">
+
+        <span class="ui-float-label">
+          <input type="text" formControlName="nom" class="form-control" id="nomfichier" size="30" pInputText size="30"
+            required>
+          <label for="nomfichier">Nom</label>
+        </span>
+        <div *ngIf="submitted && f.nom.invalid" style="color: red;">Nom est obligatoire
+        </div>
+      </div>
+
+      <div class="form-group col-md-12">
+        <span class="ui-float-label">
+          <textarea class="form-control" id="fichierdescription" formControlName="description" size="30" pInputText
+            size="30" required></textarea>
+          <label for="fichierdescription">Déscription</label>
+        </span>
+        <div *ngIf="submitted && f.description.invalid" style="color: red;">Description est obligatoire
+        </div>
+      </div>
+
+    </div>
+
+    <p-footer>
+      <button type="submit" pButton style="margin-right: .5em" class="btn btn-primary" label="Enregistrer"></button>
+      <button type="button" pButton (click)="displayBasic=false" label="Annuler" style="margin-right: .5em"
+        class="ui-button-danger"></button>
+    </p-footer>
+
+  </form>
+</p-dialog>
+
+
+
+<p-dialog header="Modifier Fichier" [(visible)]="displayBasic1" [style]="{width: '50vw'}">
+
+
+  <form [formGroup]="fichierForm1" (ngSubmit)="updateFichier()">
+
+
+    <div class="form-row">
+      <div class="form-group col-md-12">
+
+        <span class="ui-float-label">
+          <input type="text" formControlName="nom" class="form-control" id="nomfichier" size="30" pInputText size="30"
+            required>
+          <label for="nomfichier">Nom</label>
+        </span>
+        <div *ngIf="submitted && f.nom.invalid" style="color: red;">Nom est obligatoire
+        </div>
+      </div>
+
+      <div class="form-group col-md-12">
+        <span class="ui-float-label">
+          <textarea class="form-control" id="fichierdescription" formControlName="description" size="30" pInputText
+            size="30" required></textarea>
+          <label for="fichierdescription">Déscription</label>
+        </span>
+        <div *ngIf="submitted && f.description.invalid" style="color: red;">Description est obligatoire
+        </div>
+      </div>
+
+    </div>
+
+    <p-footer>
+      <button type="submit" pButton style="margin-right: .5em" class="btn btn-primary" label="Enregistrer"></button>
+      <button type="button" pButton (click)="displayBasic1=false" label="Annuler" style="margin-right: .5em"
+        class="ui-button-danger"></button>
+    </p-footer>
+
+  </form>
+</p-dialog>

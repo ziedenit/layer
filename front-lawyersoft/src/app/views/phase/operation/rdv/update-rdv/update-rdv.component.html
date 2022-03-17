@@ -1,0 +1,33 @@
+<p-dialog header="Modifier Rendez-vous" [(visible)]="displayBasicupdate" [style]="{'width': '500px','height': '180px'}">
+
+<form [formGroup]="rendezvousForm" (ngSubmit)="updateRendez()">
+
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <p-dropdown [options]="etat" formControlName="etat" placeholder="Etat"
+        [style]="{'width':'100%','line-height': '1.25'}">
+      </p-dropdown>
+
+    </div>
+
+  </div>
+
+  <div class="form-row">
+
+    <div class="form-group col-md-12">
+      <span class="ui-float-label">
+        <textarea id="rdvdescription" class="form-control" formControlName="description" rows="5" cols="30"
+          pInputTextarea required></textarea>
+      </span>
+
+    </div>
+  </div>
+
+  <p-footer>
+    <button type="submit" pButton  class="btn btn-primary" label="Modifier"></button>
+
+  </p-footer>
+
+</form>
+</p-dialog>
+<p-toast [style]="{marginTop: '80px'}"></p-toast>

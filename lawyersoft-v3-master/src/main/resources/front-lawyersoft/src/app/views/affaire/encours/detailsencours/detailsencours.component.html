@@ -1,0 +1,129 @@
+<p-breadcrumb style="position: relative; top:-35px;" [model]="items" [home]="home"></p-breadcrumb>
+<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+  <div class="panel panel-primary" style="border: 1px solid #35748b;">
+    <div class="panel-heading bg-primary">
+      <div class="row">
+
+        <div class="col-sm-10">
+          <h4><i class="fa fa-plus-circle"></i> Détails Affaire</h4>
+        </div>
+        <div class="col-sm-2">
+          <button routerLink="/affaire/encours" class="btn btn-inverse"><i
+              class="icofont icofont-arrow-left"></i>Retour</button></div>
+      </div>
+
+    </div>
+    <br>
+
+    <form [formGroup]="affaireForm">
+      <div class="panel-body">
+        <div class="container">
+
+
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <p-fieldset legend="Phase" [toggleable]="true">
+
+                <div class="d-flex justify-content-center"  >
+                  <i class="fa fa-dot-circle-o" style="color: darkcyan;" *ngIf="phase.current == true">
+                    {{phase.nom}}
+                  </i>
+
+                </div>
+
+              </p-fieldset>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-md-12">
+
+              <p-fieldset legend="Informations">
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <span class="ui-float-label">
+                      <input type="text" id="titre" formControlName="titre" id="titreaffaire" class="form-control"
+                        readonly="readonly" size="30" pInputText size="30" required>
+                      <label for="titreaffaire">Titre</label>
+                    </span>
+
+                  </div>
+
+                  <div class="form-group col-md-6">
+                    <span class="ui-float-label">
+                      <input type="text" formControlName="reference" id="referenceaffaire" class="form-control"
+                        readonly="readonly" size="30" pInputText required>
+                      <label for="referenceaffaire">Référence</label>
+                    </span>
+
+                  </div>
+                </div>
+
+
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <span class="ui-float-label">
+
+                      <p-multiSelect optionLabel="nom" [options]="listIntervenant" formControlName="intervenant"
+                        readonly="readonly" [panelStyle]="{minWidth:'12em'}" id="intervenant"
+                        [style]="{'width':'100%','line-height': '1.25'}"></p-multiSelect>
+                      <label for="intervenant">Intervenant</label>
+                    </span>
+                  </div>
+
+                  <div class="form-group col-md-6">
+                    <span class="ui-float-label">
+                      <p-dropdown [style]="{'width':'100%','line-height': '1.25'}" [options]="listTypeaffaire"
+                        formControlName="typeaffaireId" optionLabel="typeaffaire" editable="true"
+                        placeholder="Select Type affaire" readonly="readonly" id="typeaffaire">
+                      </p-dropdown>
+                    </span>
+
+                  </div>
+                </div>
+              </p-fieldset>
+            </div>
+          </div>
+
+
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <p-fieldset legend="Auxiliaire" [toggleable]="true">
+                <p-multiSelect [options]="listAuxiliaire" [style]="{'width':'100%','line-height': '1.25'}"
+                  readonly="readonly" formControlName="auxiliaire" optionLabel="nom">
+                </p-multiSelect>
+
+
+              </p-fieldset>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <p-fieldset legend="Utilisateur" [toggleable]="true">
+                <p-multiSelect [options]="listUser" [style]="{'width':'100%','line-height': '1.25'}" readonly="readonly"
+                  formControlName="user" optionLabel="nom">
+                </p-multiSelect>
+
+
+              </p-fieldset>
+            </div>
+          </div>
+
+
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <span class="ui-float-label">
+                <textarea id="affairedescription" class="form-control" formControlName="description" rows="5" cols="30"
+                  readonly="readonly" pInputTextarea required></textarea>
+                <label for="affairedescription">Déscription</label>
+              </span>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+
+  </div>
+</div>

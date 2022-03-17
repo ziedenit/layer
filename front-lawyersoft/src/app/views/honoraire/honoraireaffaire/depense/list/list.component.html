@@ -1,0 +1,80 @@
+<p-table #tt [columns]="cols" [value]="honoraireservice.listHonnorairedepense" [paginator]="true" [rows]="5"
+  [first]="first" selectionMode="single" [(selection)]="selectedHonnorairedepense"
+  [(contextMenuSelection)]="selectedHonnorairedepense" [globalFilterFields]="[
+    'titre',
+    'montant'
+  ]">
+
+
+  <ng-template pTemplate="caption">
+    <div style="align-content: center;"><i class="fa fa-reorder"></i>Liste des dépenses</div>
+
+    <button pButton icon="fa fa-plus-circle" (click)="showBasicDialogaddpense()" class="ui-button-rounded"
+      style="position: relative; left: 150px;top: -20px"></button>
+
+    <div class="ui-g">
+      <div class="ui-g-12">
+        <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+        <input type="text" pInputText size="50" placeholder="Filtre Globale"
+          (input)="tt.filterGlobal($event.target.value, 'contains')" style="width:auto" />
+      </div>
+    </div>
+    totale:  {{totaldepense}}
+
+  </ng-template>
+
+
+  <ng-template pTemplate="header" let-columns>
+
+    <tr>
+      <th *ngFor="let col of columns">
+        {{col.header}}
+      </th>
+      <th style="align-items: center;width: 20%">Operations</th>
+    </tr>
+
+  </ng-template>
+  <ng-template pTemplate="body" let-Honnoraire>
+    <tr>
+      <td>{{Honnoraire.titre}}</td>
+      <td> {{Honnoraire.dateHonnoraire}}</td>
+      <td>{{Honnoraire.montant}}</td>
+
+      <td style="text-align:center">
+
+        <button pButton type="button" icon="pi pi-pencil" class="ui-button-info" style="margin-right: .5em"
+          (click)="showBasicDialogupdatedepense(Honnoraire)" data-toggle="tooltip" data-placement="top"
+          title="Mise à jour"></button>
+
+        <!--(click)="confirm2(Honnoraire.honoraireId)"-->
+        <button pButton type="button" (click)="confirm2(Honnoraire.honnoraireId)" icon="fa fa-trash"
+          class="ui-button-danger" data-toggle="tooltip" data-placement="top" title="Supprimer"></button>
+
+
+      </td>
+    </tr>
+
+
+    <ng-template pTemplate="paginatorleft" let-state>
+      {{state.first}}
+      <button type="button" pButton icon="fa-refresh"></button>
+    </ng-template>
+
+    <ng-template pTemplate="paginatorright">
+      <button type="button" pButton icon="fa-cloud-upload"></button>
+    </ng-template>
+
+
+  </ng-template>
+
+  <ng-template pTemplate="summary">
+    {{honoraireservice.listHonnorairedepense?.length}} Dépenses
+
+  </ng-template>
+
+
+</p-table>
+
+<app-add (totalDepense)="addTotalDepense($event)" [displayBasicaddepense]="displayBasicaddepense" [affaireId]="affaireId"></app-add>
+<app-update [displayBasicupdatedepense]="displayBasicupdatedepense" [honoraireId]="honoraireToUpdate"></app-update>
+<p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>

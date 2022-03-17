@@ -1,0 +1,118 @@
+<p-breadcrumb style="position: relative; top:-35px;" [model]="items" [home]="home"></p-breadcrumb>
+<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+    <div class="panel panel-primary" style="border: 1px solid #35748b;">
+        <div class="panel-heading bg-primary">
+            <div class="row">
+
+                <div class="col-sm-10">
+                    <h4><i class="fa fa-plus-circle"></i> Ajouter utilisateur</h4>
+                </div>
+                <div class="col-sm-2">
+                    <button routerLink="/user" class="btn btn-inverse"><i
+                            class="icofont icofont-arrow-left"></i>Retour</button></div>
+            </div>
+
+        </div>
+        <br>
+
+        <form [formGroup]="userForm" (ngSubmit)="addUser()">
+            <div class="panel-body">
+                <div class="container">
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+
+                            <span class="ui-float-label">
+                                <input type="text" id="name" formControlName="nom" id="username" class="form-control"
+                                    size="30" pInputText size="30" required>
+
+                                <label for="username">Nom</label>
+                            </span>
+                            <div *ngIf="submitted && f.nom.invalid" style="color: red;">Nom est obligatoire
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <span class="ui-float-label">
+                                <input type="text" formControlName="prenom" id="userprenom" class="form-control"
+                                    size="30" pInputText required>
+                                <label for="userprenom">Prénom</label>
+                            </span>
+                            <div *ngIf="submitted && f.prenom.invalid" style="color: red;">Prénom est obligatoire
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+
+                            <span class="ui-float-label">
+                                <input type="text" formControlName="login" id="userlogin" class="form-control" size="30"
+                                    pInputText required>
+                                <label for="userlogin">Login</label>
+                            </span>
+                            <div *ngIf="submitted && f.login.invalid" style="color: red;">Login est
+                                obligatoire
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <span class="ui-float-label">
+                                <input type="password" formControlName="password" id="userpassword" class="form-control"
+                                    size="30" pInputText required>
+                                <label for="userpassword">Mot de passe</label>
+                            </span>
+                            <div *ngIf="submitted && f.password.invalid" style="color: red;">Mot de passe est
+                                obligatoire
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+
+                            <span class="ui-float-label">
+                                <input type="email" formControlName="email" id="useremail" class="form-control"
+                                    pInputText required>
+
+                                <label for="useremail">Email</label>
+                            </span>
+                            <div *ngIf="submitted && f.email.invalid" style="color: red;">
+                                Email est obligatoire
+                            </div>
+
+
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <p-dropdown [options]="listProfil" formControlName="idProfil" optionLabel="nameProfil"
+                                placeholder="Profile">
+                            </p-dropdown>
+                            <div *ngIf="submitted && f.idProfil.invalid" style="color: red;">Profil est obligatoire
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <p-inputSwitch formControlName="etat"></p-inputSwitch>
+                        </div>
+                    </div>
+
+
+                    <div class="form-row">
+                        <div class="form-group mx-sm-3 mb-2">
+                            <button type="submit" pButton label="Soumettre" style="margin-right: .5em"
+                                class="ui-button-success"></button>
+
+                            <button type="button" pButton type="button" (click)="resetUserForm()" label="Réinitialiser"
+                                style="margin-right: .5em" class="ui-button-raised ui-button-danger"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>

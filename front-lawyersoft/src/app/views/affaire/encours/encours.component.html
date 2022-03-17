@@ -1,0 +1,107 @@
+<p-breadcrumb style="position: relative; top:-35px;" [model]="items" [home]="home"></p-breadcrumb>
+<p-table #tt [columns]="cols" [value]="listAffaire" [paginator]="true" [rows]="10" [first]="first"
+  selectionMode="single" [(selection)]="selectedAffaire" [(contextMenuSelection)]="selectedAffaire"
+  [globalFilterFields]="[
+    'Titre affaire',
+    'reference',
+    'Avocats',
+    'Tribunal',
+    'Type Affaire'
+  ]">
+
+
+  <ng-template pTemplate="caption">
+    <div style="align-content: center;">Liste des Affaires En cours</div>
+    <div class="ui-g">
+      <div class="ui-g-12">
+        <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+        <input type="text" pInputText size="50" placeholder="Filtre Globale"
+          (input)="tt.filterGlobal($event.target.value, 'contains')" style="width:auto" />
+      </div>
+    </div>
+  </ng-template>
+
+
+  <ng-template pTemplate="header" let-columns>
+
+    <tr>
+      <th *ngFor="let col of columns">
+        {{col.header}}
+      </th>
+      <th style="align-items: center;width: 20%">Operations</th>
+    </tr>
+
+  </ng-template>
+
+  <ng-template pTemplate="body" let-Affaire>
+    <tr>
+      <td>{{Affaire.reference}}</td>
+      <td>{{Affaire.titre}}</td>
+      <td>{{Affaire.dateCreation | date:'yyyy/MM/dd' }} </td>
+      <td><span *ngFor="let item of Affaire.user">{{item.nom}}<br> {{item.prenom}}</span></td>
+      <td>{{Affaire.typeaffaireId.typeaffaire }} </td>
+
+      <td style="text-align:center">
+
+        <a [routerLink]="['/affaire/updateencours', Affaire.affaireId ]">
+          <button pButton type="button" icon="pi pi-pencil" class="ui-button-info" style="margin-right: .5em"
+            data-toggle="tooltip" data-placement="top" title="Mise à jour"></button>
+        </a>
+        <a [routerLink]="['/affaire/detailsencours', Affaire.affaireId ]">
+          <button pButton type="button" icon="fa fa-tasks" class="ui-button-info" style="margin-right: .5em"
+            data-toggle="tooltip" data-placement="top" title="Détails"></button>
+        </a>
+        <a [routerLink]="['/phase/suiviephase', Affaire.affaireId ]">
+          <button pButton type="button" icon="fa fa-gavel" style="margin-right: .5em" class="ui-button-info"
+            style="margin-right: .5em" data-toggle="tooltip" data-placement="top" title="Suivre l'affaire"></button>
+        </a>
+
+        <br>
+        <br>
+
+        <a [routerLink]="['/affaire/phase', Affaire.affaireId ]">
+          <button pButton type="button" icon="fa fa-file-text" style="margin-right: .5em" class="ui-button-info"
+            style="margin-right: .5em" data-toggle="tooltip" data-placement="top" title="Générer rapport"></button>
+        </a>
+
+        <a [routerLink]="['/dossier/dossieraffaire', Affaire.affaireId ]">
+          <button pButton type="button" icon="fa fa-folder" style="margin-right: .5em" class="ui-button-info"
+            style="margin-right: .5em" data-toggle="tooltip" data-placement="top" title="Piéces de l'affaire"></button>
+        </a>
+
+        <a>
+          <button pButton type="button" icon="fa fa-cloud-download" class="ui-button-info" style="margin-right: .5em"
+            data-toggle="tooltip" (click)="updateetat(Affaire.affaireId)" data-placement="top"
+            title="Archiver"></button>
+        </a>
+
+        <br>
+        <br>
+        <button pButton type="button" (click)="confirm2(Affaire.affaireId)" icon="fa fa-trash" class="ui-button-danger"
+          data-toggle="tooltip" data-placement="top" style="margin-right: .5em" title="Supprimer"></button>
+
+
+      </td>
+    </tr>
+
+
+
+    <ng-template pTemplate="paginatorleft" let-state>
+      {{state.first}}
+      <button type="button" pButton icon="fa-refresh"></button>
+    </ng-template>
+
+    <ng-template pTemplate="paginatorright">
+      <button type="button" pButton icon="fa-cloud-upload"></button>
+    </ng-template>
+
+  </ng-template>
+
+
+  <ng-template pTemplate="summary">
+    {{listAffaire?.length}} Affaire En cours
+
+  </ng-template>
+
+</p-table>
+<p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
